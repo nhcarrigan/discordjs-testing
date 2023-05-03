@@ -26,6 +26,10 @@
   "bugs": {
     "url": "https://github.com/naomi-lgbt/discord-testing/issues"
   },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/naomi-lgbt"
+  },
   "homepage": "https://github.com/naomi-lgbt/discord-testing#readme",
   "dependencies": {
     "dotenv": "16.0.3",
