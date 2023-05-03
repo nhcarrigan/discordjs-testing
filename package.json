@@ -8,7 +8,7 @@
     "build": "tsc",
     "lint": "eslint src test --max-warnings 0",
     "start": "node -r dotenv/config prod/index.js",
-    "test": "ts-mocha -u tdd  test/**/*.spec.ts --recursive --exit --timeout 10000"
+    "test": "ts-mocha -u tdd test/index.spec.ts test/**/*.spec.ts --recursive --timeout 10000"
   },
   "repository": {
     "type": "git",

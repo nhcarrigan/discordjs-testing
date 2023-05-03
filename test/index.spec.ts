@@ -3,12 +3,12 @@ import { join } from "path";
 
 import { assert } from "chai";
 
-suite("All expected modules should be exported", () => {
+suite("index file", () => {
   const fileContent = readFileSync(
     join(process.cwd(), "src", "index.ts"),
     "utf-8"
   );
-  test("Helper modules", () => {
+  test("should have all helper modules", () => {
     const helpers = readdirSync(join(process.cwd(), "src", "helpers"));
     for (const helper of helpers) {
       const fileName = helper.replace(".ts", "");
@@ -24,7 +24,7 @@ suite("All expected modules should be exported", () => {
       );
     }
   });
-  test("Mock modules", () => {
+  test("should have all mock modules", () => {
     const mocks = readdirSync(join(process.cwd(), "src", "mocks"));
     for (const mock of mocks) {
       const fileName = mock.replace(".ts", "");
