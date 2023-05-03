@@ -1,3 +1,4 @@
+import { Snowflake } from "@sapphire/snowflake";
 import { ChatInputCommandInteraction } from "discord.js";
 
 import { ChatInputCommandInteractionParameters } from "../interfaces/ChatInputCommandInteractionParameters";
@@ -6,7 +7,9 @@ import {
   ReplyParameters,
 } from "../interfaces/ReplyParameters";
 
+import { MockChannel } from "./MockChannel";
 import { MockGuild } from "./MockGuild";
+import { MockInteractionMessage } from "./MockInteractionMessage";
 import { MockMember } from "./MockMember";
 import { MockUser } from "./MockUser";
 
@@ -30,7 +33,9 @@ export class MockChatInputCommandInteraction {
   private _user: MockUser;
   private _deferred: boolean;
   private _ephemeral: boolean;
-  private _replies: InteractionReplyParameters[];
+  private _replies: MockInteractionMessage[];
+  private _channel: MockChannel;
+  private _bot: MockUser;
 
   /**
    * @param {ChatInputCommandInteractionParameters} options The options for the interaction.
@@ -47,6 +52,8 @@ export class MockChatInputCommandInteraction {
     this._ephemeral = false;
     this._deferred = false;
     this._replies = [];
+    this._channel = options.channel;
+    this._bot = options.bot;
   }
 
   /**
@@ -129,9 +136,10 @@ export class MockChatInputCommandInteraction {
    * @param { { ephemeral?: boolean } } options The options for the reply.
    * @public
    */
-  public deferReply({ ephemeral }: { ephemeral?: boolean }): void {
+  public deferReply({ ephemeral }: { ephemeral?: boolean }): Promise<boolean> {
     this._deferred = true;
     this._ephemeral = ephemeral || false;
+    return new Promise(() => true);
   }
 
   /**
@@ -139,20 +147,36 @@ export class MockChatInputCommandInteraction {
    * Sends a reply. Adds the reply payload to the replies array.
    *
    * @param {string | InteractionReplyParameters} payload The reply payload.
+   * @returns {Promise<MockInteractionMessage>} The message.
+   * @async
    * @public
    */
-  public reply(payload: string | InteractionReplyParameters): void {
+  public reply(
+    payload: string | InteractionReplyParameters
+  ): Promise<MockInteractionMessage> {
     if (typeof payload === "string") {
-      this._replies.push({ content: payload });
-      return;
+      const message = new MockInteractionMessage({
+        content: payload,
+        author: this._bot,
+        channel: this._channel,
+        id: new Snowflake(Date.now()).generate().toString(10),
+        ephemeral: this._ephemeral,
+      });
+      this._replies.push(message);
+      return new Promise(() => message);
     }
     const { content, embeds, attachments, ephemeral } = payload;
-    this._replies.push({
+    const message = new MockInteractionMessage({
       content,
       embeds,
       attachments,
       ephemeral,
+      author: this._bot,
+      channel: this._channel,
+      id: new Snowflake(Date.now()).generate().toString(10),
     });
+    this._replies.push(message);
+    return new Promise(() => message);
   }
 
   /**
@@ -161,22 +185,18 @@ export class MockChatInputCommandInteraction {
    * Here it just adds the payload to the replies array.
    *
    * @param {string | ReplyParameters} payload The reply payload.
+   * @returns {Promise<MockInteractionMessage>} The message.
+   * @async
    * @public
    */
-  public editReply(payload: string | ReplyParameters): void {
+  public editReply(
+    payload: string | ReplyParameters
+  ): Promise<MockInteractionMessage> {
     if (!this._deferred && !this._replies.length) {
       throw new Error("Interaction has not been deferred or replied.");
     }
-    if (typeof payload === "string") {
-      this._replies.push({ content: payload });
-      return;
-    }
-    const { content, embeds, attachments } = payload;
-    this._replies.push({
-      content,
-      embeds,
-      attachments,
-    });
+    const message = this.reply(payload);
+    return message;
   }
 
   /**

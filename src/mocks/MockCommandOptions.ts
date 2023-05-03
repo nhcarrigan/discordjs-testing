@@ -1,6 +1,22 @@
 import { ApplicationCommandOptionType } from "discord.js";
 
-import { OptionParameters } from "../interfaces/OptionParameters";
+import {
+  AttachmentOptionParameters,
+  BooleanOptionParameters,
+  ChannelOptionParameters,
+  IntegerOptionParameters,
+  MentionableOptionParameters,
+  NumberOptionParameters,
+  OptionParameters,
+  RoleOptionParameters,
+  StringOptionParameters,
+  UserOptionParameters,
+} from "../interfaces/OptionParameters";
+
+import { MockAttachment } from "./MockAttachment";
+import { MockChannel } from "./MockChannel";
+import { MockRole } from "./MockRole";
+import { MockUser } from "./MockUser";
 
 /**
  * Mocks a discord.js ApplicationCommandOption.
@@ -31,14 +47,19 @@ export class MockCommandOptions {
    * Gets a user option.
    *
    * @param {string} name The name of the option to get.
-   * @returns {OptionParameters | undefined} The option if found, undefined otherwise.
+   * @param {boolean} required Whether the option is required.
+   * @returns {MockUser | undefined} The option value if found, undefined otherwise.
    * @public
    */
-  public getUser(name: string) {
-    return this._data.find(
+  public getUser(name: string, required?: boolean): MockUser | undefined {
+    const result = this._data.find(
       (opt) =>
         opt.name === name && opt.type === ApplicationCommandOptionType.User
-    );
+    ) as UserOptionParameters | undefined;
+    if (!result && required) {
+      throw new Error(`Could not find required user option ${name}`);
+    }
+    return result?.value;
   }
 
   /**
@@ -46,14 +67,19 @@ export class MockCommandOptions {
    * Gets a string option.
    *
    * @param {string} name The name of the option to get.
-   * @returns {OptionParameters | undefined} The option if found, undefined otherwise.
+   * @param {boolean} required Whether the option is required.
+   * @returns {string | undefined} The option value if found, undefined otherwise.
    * @public
    */
-  public getString(name: string) {
-    return this._data.find(
+  public getString(name: string, required?: boolean): string | undefined {
+    const result = this._data.find(
       (opt) =>
         opt.name === name && opt.type === ApplicationCommandOptionType.String
-    );
+    ) as StringOptionParameters | undefined;
+    if (!result && required) {
+      throw new Error(`Could not find required string option ${name}`);
+    }
+    return result?.value;
   }
 
   /**
@@ -61,14 +87,19 @@ export class MockCommandOptions {
    * Gets an integer option.
    *
    * @param {string} name The name of the option to get.
-   * @returns {OptionParameters | undefined} The option if found, undefined otherwise.
+   * @param {boolean} required Whether the option is required.
+   * @returns {number | undefined} The option value if found, undefined otherwise.
    * @public
    */
-  public getInteger(name: string) {
-    return this._data.find(
+  public getInteger(name: string, required?: boolean): number | undefined {
+    const result = this._data.find(
       (opt) =>
         opt.name === name && opt.type === ApplicationCommandOptionType.Integer
-    );
+    ) as IntegerOptionParameters | undefined;
+    if (!result && required) {
+      throw new Error(`Could not find required integer option ${name}`);
+    }
+    return result?.value;
   }
 
   /**
@@ -76,14 +107,19 @@ export class MockCommandOptions {
    * Gets a boolean option.
    *
    * @param {string} name The name of the option to get.
-   * @returns {OptionParameters | undefined} The option if found, undefined otherwise.
+   * @param {boolean} required Whether the option is required.
+   * @returns {boolean | undefined} The option value if found, undefined otherwise.
    * @public
    */
-  public getBoolean(name: string) {
-    return this._data.find(
+  public getBoolean(name: string, required?: boolean): boolean | undefined {
+    const result = this._data.find(
       (opt) =>
         opt.name === name && opt.type === ApplicationCommandOptionType.Boolean
-    );
+    ) as BooleanOptionParameters | undefined;
+    if (!result && required) {
+      throw new Error(`Could not find required user option ${name}`);
+    }
+    return result?.value;
   }
 
   /**
@@ -91,14 +127,19 @@ export class MockCommandOptions {
    * Gets a channel option.
    *
    * @param {string} name The name of the option to get.
-   * @returns {OptionParameters | undefined} The option if found, undefined otherwise.
+   * @param {boolean} required Whether the option is required.
+   * @returns {MockChannel | undefined} The option value if found, undefined otherwise.
    * @public
    */
-  public getChannel(name: string) {
-    return this._data.find(
+  public getChannel(name: string, required?: boolean): MockChannel | undefined {
+    const result = this._data.find(
       (opt) =>
         opt.name === name && opt.type === ApplicationCommandOptionType.Channel
-    );
+    ) as ChannelOptionParameters | undefined;
+    if (!result && required) {
+      throw new Error(`Could not find required channel option ${name}`);
+    }
+    return result?.value;
   }
 
   /**
@@ -106,14 +147,19 @@ export class MockCommandOptions {
    * Gets a role option.
    *
    * @param {string} name The name of the option to get.
-   * @returns {OptionParameters | undefined} The option if found, undefined otherwise.
+   * @param {boolean} required Whether the option is required.
+   * @returns {MockRole | undefined} The option if found, undefined otherwise.
    * @public
    */
-  public getRole(name: string) {
-    return this._data.find(
+  public getRole(name: string, required?: boolean): MockRole | undefined {
+    const result = this._data.find(
       (opt) =>
         opt.name === name && opt.type === ApplicationCommandOptionType.Role
-    );
+    ) as RoleOptionParameters | undefined;
+    if (!result && required) {
+      throw new Error(`Could not find required role option ${name}`);
+    }
+    return result?.value;
   }
 
   /**
@@ -121,15 +167,23 @@ export class MockCommandOptions {
    * Gets a mentionable option.
    *
    * @param {string} name The name of the option to get.
-   * @returns {OptionParameters | undefined} The option if found, undefined otherwise.
+   * @param {boolean} required Whether the option is required.
+   * @returns {MockRole | MockUser | MockChannel | undefined} The option if found, undefined otherwise.
    * @public
    */
-  public getMentionable(name: string) {
-    return this._data.find(
+  public getMentionable(
+    name: string,
+    required?: boolean
+  ): MockRole | MockUser | MockChannel | undefined {
+    const result = this._data.find(
       (opt) =>
         opt.name === name &&
         opt.type === ApplicationCommandOptionType.Mentionable
-    );
+    ) as MentionableOptionParameters | undefined;
+    if (!result && required) {
+      throw new Error(`Could not find required mentionable option ${name}`);
+    }
+    return result?.value;
   }
 
   /**
@@ -137,14 +191,19 @@ export class MockCommandOptions {
    * Gets a number option.
    *
    * @param {string} name The name of the option to get.
-   * @returns {OptionParameters | undefined} The option if found, undefined otherwise.
+   * @param {boolean} required Whether the option is required.
+   * @returns {number | undefined} The option if found, undefined otherwise.
    * @public
    */
-  public getNumber(name: string) {
-    return this._data.find(
+  public getNumber(name: string, required?: boolean): number | undefined {
+    const result = this._data.find(
       (opt) =>
         opt.name === name && opt.type === ApplicationCommandOptionType.Number
-    );
+    ) as NumberOptionParameters | undefined;
+    if (!result && required) {
+      throw new Error(`Could not find required user option ${name}`);
+    }
+    return result?.value;
   }
 
   /**
@@ -152,14 +211,22 @@ export class MockCommandOptions {
    * Gets an attachment option.
    *
    * @param {string} name The name of the option to get.
-   * @returns {OptionParameters | undefined} The option if found, undefined otherwise.
+   * @param {boolean} required Whether the option is required.
+   * @returns {MockAttachment | undefined} The option if found, undefined otherwise.
    * @public
    */
-  public getAttachment(name: string) {
-    return this._data.find(
+  public getAttachment(
+    name: string,
+    required?: boolean
+  ): MockAttachment | undefined {
+    const result = this._data.find(
       (opt) =>
         opt.name === name &&
         opt.type === ApplicationCommandOptionType.Attachment
-    );
+    ) as AttachmentOptionParameters | undefined;
+    if (!result && required) {
+      throw new Error(`Could not find required user option ${name}`);
+    }
+    return result?.value;
   }
 }

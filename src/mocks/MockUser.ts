@@ -1,5 +1,8 @@
+import { MessageParameters } from "../interfaces/MessageParameters";
 import { ReplyParameters } from "../interfaces/ReplyParameters";
 import { UserParameters } from "../interfaces/UserParameters";
+
+import { MockMessage } from "./MockMessage";
 
 /**
  * Mocks a discord.js User.
@@ -14,7 +17,7 @@ export class MockUser {
   private _avatar: string;
   private _bot: boolean;
   private _system: boolean;
-  private _dms: ReplyParameters[];
+  private _dms: MessageParameters[];
   /**
    * @param {UserParameters} options The user's options.
    * @public
@@ -122,10 +125,11 @@ export class MockUser {
    * Mock for the fetch() method.
    *
    * @returns {MockUser} This user.
+   * @async
    * @public
    */
-  public fetch(): MockUser {
-    return this;
+  public fetch(): Promise<MockUser> {
+    return new Promise(() => this);
   }
 
   /**
@@ -142,10 +146,13 @@ export class MockUser {
    * Mock for the send() method. Pushes the message object
    * to an internal array.
    *
-   * @param {ReplyParameters} options The message to send.
+   * @param {MessageParameters} options The message to send.
+   * @returns {Promise<MockMessage>} The sent message.
+   * @async
    * @public
    */
-  public send(options: ReplyParameters) {
+  public send(options: MessageParameters): Promise<MockMessage> {
     this._dms.push(options);
+    return new Promise(() => new MockMessage(options));
   }
 }

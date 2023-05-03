@@ -7,6 +7,6 @@ import { ReplyParameters } from "./ReplyParameters";
 export interface MessageParameters extends ReplyParameters {
   id: string;
   channel: MockChannel;
-  guild: MockGuild;
+  guild?: MockGuild;
   author: MockUser;
 }

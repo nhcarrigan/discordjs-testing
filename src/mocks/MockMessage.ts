@@ -18,7 +18,7 @@ export class MockMessage {
   private _id: string;
   private _author: MockUser;
   private _channelId: string;
-  private _guildId: string;
+  private _guildId: string | undefined;
   private _content: string | undefined;
   private _embeds: (EmbedBuilder | APIEmbed)[] | undefined;
   private _attachments: (AttachmentBuilder | APIAttachment)[] | undefined;
@@ -30,7 +30,7 @@ export class MockMessage {
     this._id = options.id;
     this._author = options.author;
     this._channelId = options.channel.id;
-    this._guildId = options.guild.id;
+    this._guildId = options.guild?.id;
     this._content = options.content;
     this._embeds = options.embeds;
     this._attachments = options.attachments;
