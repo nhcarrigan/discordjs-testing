@@ -1,0 +1,9 @@
+/.github/
+/src/
+.env
+.eslintrc.json
+.gitattributes
+.prettierrc
+
+# Ignore this for local development
+*.tgz

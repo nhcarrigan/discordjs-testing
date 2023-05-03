@@ -1,9 +1,10 @@
 {
-  "name": "nodejs-typescript-template",
+  "name": "discordjs-testing",
   "version": "0.0.0",
-  "description": "A template for my nodejs projects",
-  "main": "prod/index.js",
+  "description": "Helper package for testing DiscordJS bots with Mocha/Chai",
+  "main": "prod/index.ts",
   "scripts": {
+    "prebuild": "rm -rf prod",
     "build": "tsc",
     "lint": "eslint src test --max-warnings 0",
     "start": "node -r dotenv/config prod/index.js",
@@ -14,11 +15,11 @@
     "url": "git+ssh://git@github.com/naomi-lgbt/nodejs-typescript-template.git"
   },
   "keywords": [
-    "template",
     "typescript",
-    "eslint",
-    "nodejs",
-    "prettier"
+    "discord.js",
+    "discord",
+    "testing",
+    "mocks"
   ],
   "author": "Naomi Carrigan",
   "license": "MPL-2.0",
@@ -43,5 +44,8 @@
     "prettier": "2.8.8",
     "ts-mocha": "10.0.0",
     "typescript": "5.0.4"
+  },
+  "peerDependencies": {
+    "discord.js": "14.10.2"
   }
 }
