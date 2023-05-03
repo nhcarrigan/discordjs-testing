@@ -1,5 +1,6 @@
 import { CommandDataHelper } from "./helpers/CommandDataHelper";
 import { MockAttachment } from "./mocks/MockAttachment";
+import { MockBan } from "./mocks/MockBan";
 import { MockChannel } from "./mocks/MockChannel";
 import { MockChatInputCommandInteraction } from "./mocks/MockChatInputCommandInteraction";
 import { MockCommandOptions } from "./mocks/MockCommandOptions";
@@ -14,6 +15,7 @@ import { MockWebhook } from "./mocks/MockWebhook";
 export {
   CommandDataHelper,
   MockAttachment,
+  MockBan,
   MockChannel,
   MockChatInputCommandInteraction,
   MockCommandOptions,
