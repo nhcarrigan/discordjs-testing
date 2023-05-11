@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/naomi-lgbt/discord-testing.git"
+    "url": "git+ssh://git@github.com/nhcarrigan/discordjs-testing.git"
   },
   "keywords": [
     "typescript",
@@ -24,13 +24,13 @@
   "author": "Naomi Carrigan",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/naomi-lgbt/discord-testing/issues"
+    "url": "https://github.com/nhcarrigan/discordjs-testing/issues"
   },
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/naomi-lgbt"
   },
-  "homepage": "https://github.com/naomi-lgbt/discord-testing#readme",
+  "homepage": "https://github.com/nhcarrigan/discordjs-testing#readme",
   "dependencies": {
     "dotenv": "16.0.3",
     "winston": "3.8.2"
