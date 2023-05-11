@@ -6,6 +6,9 @@ import { MockMessage } from "../../src/mocks/MockMessage";
 import { MockUser } from "../../src/mocks/MockUser";
 
 suite("Mock Message", () => {
+  /**
+   * Instantiation.
+   */
   test("should instantiate", () => {
     const message = new MockMessage({
       id: "1",
@@ -27,4 +30,12 @@ suite("Mock Message", () => {
     assert.exists(message);
     assert.instanceOf(message, MockMessage);
   });
+
+  /**
+   * Properties.
+   */
+
+  /**
+   * Methods.
+   */
 });

@@ -52,6 +52,10 @@ const baseInteractionOpts = {
 };
 
 suite("Mock Chat Input Command Interaction", () => {
+  /**
+   * Instantiation.
+   */
+
   test("should instantiate", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
@@ -60,14 +64,18 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.instanceOf(interaction, MockChatInputCommandInteraction);
   });
 
-  test("should get command name", () => {
+  /**
+   * Properties.
+   */
+
+  test("should have command name property", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
     assert.equal(interaction.commandName, "test");
   });
 
-  test("should get subcommand group name", () => {
+  test("should have subcommand group name property", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
@@ -79,7 +87,7 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.equal(withSubcommandGroup.subcommandGroupName, "test");
   });
 
-  test("should get subcommand name", () => {
+  test("should have subcommand name property", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
@@ -91,42 +99,46 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.equal(withSubcommand.subcommandName, "test");
   });
 
-  test("should get guild", () => {
+  test("should have guild property", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
     assert.deepEqual(interaction.guild, baseInteractionOpts.guild);
   });
 
-  test("should get member", () => {
+  test("should have member property", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
     assert.deepEqual(interaction.member, baseInteractionOpts.member);
   });
 
-  test("should get user", () => {
+  test("should have user property", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
     assert.deepEqual(interaction.user, baseInteractionOpts.user);
   });
 
-  test("should get ephemeral", () => {
+  test("should have ephemeral property", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
     assert.isFalse(interaction.ephemeral);
   });
 
-  test("should get deferred", () => {
+  test("should have deferred property", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
     assert.isFalse(interaction.deferred);
   });
 
-  test("should defer reply", () => {
+  /**
+   * Methods.
+   */
+
+  test("should be able to defer reply", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
@@ -134,7 +146,7 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.isTrue(interaction.deferred);
   });
 
-  test("should defer reply with ephemeral", () => {
+  test("should be able to defer reply as ephemeral", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
@@ -143,7 +155,7 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.isTrue(interaction.ephemeral);
   });
 
-  test("should error if already deferred", () => {
+  test("should not be able to defer twice", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
@@ -151,7 +163,7 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.throws(interaction.deferReply);
   });
 
-  test("should reply with string", () => {
+  test("should be able to reply with string", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
@@ -160,7 +172,7 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.equal(reply.content, "test");
   });
 
-  test("should reply with options", () => {
+  test("should be able to reply with options object", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
@@ -175,7 +187,7 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.equal(reply.embeds?.length, 1);
   });
 
-  test("should error on reply after deferred", () => {
+  test("should not be able to reply after deferred", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
@@ -183,7 +195,7 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.throws(() => interaction.reply("test"));
   });
 
-  test("should error on reply after replied", () => {
+  test("should not be able to reply twice", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
@@ -191,7 +203,7 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.throws(() => interaction.reply("test"));
   });
 
-  test("should edit reply", () => {
+  test("should be able to edit reply", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
@@ -200,10 +212,14 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.equal(interaction.replies[0].content, "test2");
   });
 
-  test("should error on edit reply before replied", () => {
+  test("should not be able to edit reply before replying", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
     assert.throws(() => interaction.editReply("test"));
+  });
+
+  test("should be able to get options by type", () => {
+    assert.fail();
   });
 });

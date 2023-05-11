@@ -4,6 +4,9 @@ import { MockUser } from "../../src/mocks/MockUser";
 
 suite("Mock User", () => {
   test("should instantiate", () => {
+    /**
+     * Instantiation.
+     */
     const user = new MockUser({
       id: "1",
       username: "test",
@@ -14,5 +17,17 @@ suite("Mock User", () => {
     });
     assert.exists(user);
     assert.instanceOf(user, MockUser);
+  });
+
+  /**
+   * Properties.
+   */
+
+  /**
+   * Methods.
+   */
+
+  test("should be able to send direct message", () => {
+    assert.fail();
   });
 });

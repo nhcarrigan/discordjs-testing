@@ -6,6 +6,9 @@ import { MockInteractionMessage } from "../../src/mocks/MockInteractionMessage";
 import { MockUser } from "../../src/mocks/MockUser";
 
 suite("Mock Interaction Message", () => {
+  /**
+   * Instantiation.
+   */
   test("should instantiate", () => {
     const message = new MockInteractionMessage({
       id: "1",
@@ -26,5 +29,18 @@ suite("Mock Interaction Message", () => {
     });
     assert.exists(message);
     assert.instanceOf(message, MockInteractionMessage);
+  });
+
+  /**
+   * Properties.
+   */
+
+  /**
+   * Methods.
+   */
+
+  test("should be able to create component collector", () => {
+    // this is gonna be yucky
+    assert.fail();
   });
 });

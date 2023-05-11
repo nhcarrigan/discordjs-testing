@@ -6,6 +6,9 @@ import { MockUser } from "../../src/mocks/MockUser";
 import { MockWebhook } from "../../src/mocks/MockWebhook";
 
 suite("Mock Webhook", () => {
+  /**
+   * Instantiation.
+   */
   test("should instantiate", () => {
     const webhook = new MockWebhook({
       user: new MockUser({
@@ -24,5 +27,17 @@ suite("Mock Webhook", () => {
     });
     assert.exists(webhook);
     assert.instanceOf(webhook, MockWebhook);
+  });
+
+  /**
+   * Properties.
+   */
+
+  /**
+   * Methods.
+   */
+
+  test("should be able to send message", () => {
+    assert.fail();
   });
 });

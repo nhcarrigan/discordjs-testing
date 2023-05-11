@@ -5,6 +5,9 @@ import { MockMember } from "../../src/mocks/MockMember";
 import { MockUser } from "../../src/mocks/MockUser";
 
 suite("Mock Member", () => {
+  /**
+   * Instantiation.
+   */
   test("should instantiate", () => {
     const member = new MockMember({
       id: "1",
@@ -23,5 +26,41 @@ suite("Mock Member", () => {
     });
     assert.exists(member);
     assert.instanceOf(member, MockMember);
+  });
+
+  /**
+   * Properties.
+   */
+
+  test("should have roles property", () => {
+    assert.fail();
+  });
+
+  test("should have permissions property", () => {
+    assert.fail();
+  });
+
+  test("should have bannable property", () => {
+    assert.fail();
+  });
+
+  test("should have kickable property", () => {
+    assert.fail();
+  });
+
+  /**
+   * Methods.
+   */
+
+  test("should be able to ban", () => {
+    assert.fail();
+  });
+
+  test("should be able to kick", () => {
+    assert.fail();
+  });
+
+  test("should be able to timeout", () => {
+    assert.fail();
   });
 });

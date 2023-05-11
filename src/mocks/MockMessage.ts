@@ -36,10 +36,20 @@ export class MockMessage {
     this._attachments = options.attachments;
   }
 
+  /**
+   * @type {string?}
+   * @public
+   * @readonly
+   */
   public get content(): string | undefined {
     return this._content;
   }
 
+  /**
+   * @type {(EmbedBuilder | APIEmbed)[]?}
+   * @public
+   * @readonly
+   */
   public get embeds(): (EmbedBuilder | APIEmbed)[] | undefined {
     return this._embeds;
   }

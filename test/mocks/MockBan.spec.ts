@@ -15,24 +15,36 @@ const user = new MockUser({
 });
 
 suite("Mock Ban", () => {
+  /**
+   * Instantiation.
+   */
+
   test("should instantiate", () => {
     const ban = new MockBan({ guild, user, reason: "stimky" });
     assert.exists(ban);
     assert.instanceOf(ban, MockBan);
   });
 
-  test("should get guild", () => {
+  /**
+   * Properties.
+   */
+
+  test("should have guild property", () => {
     const ban = new MockBan({ guild, user, reason: "stimky" });
     assert.deepEqual(ban.guild, guild);
   });
 
-  test("should get user", () => {
+  test("should have user property", () => {
     const ban = new MockBan({ guild, user, reason: "stimky" });
     assert.deepEqual(ban.user, user);
   });
 
-  test("should get reason", () => {
+  test("should have reason property", () => {
     const ban = new MockBan({ guild, user, reason: "stimky" });
     assert.equal(ban.reason, "stimky");
   });
+
+  /**
+   * Methods.
+   */
 });
