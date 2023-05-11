@@ -128,17 +128,28 @@ export class MockChatInputCommandInteraction {
   public get deferred(): boolean {
     return this._deferred;
   }
+  /**
+   * @type {MockInteractionMessage[]}
+   * @readonly
+   */
+  public get replies(): MockInteractionMessage[] {
+    return this._replies;
+  }
 
   /**
    * Mock for the deferReply method.
    * Defers a reply. Sets the interaction to deferred, and optionally ephemeral.
    *
-   * @param { { ephemeral?: boolean } } options The options for the reply.
+   * @param {object} options The options for the reply.
+   * @param {boolean} options.ephemeral Whether the reply should be ephemeral.
    * @public
    */
-  public deferReply({ ephemeral }: { ephemeral?: boolean }): Promise<boolean> {
+  public deferReply(options?: { ephemeral?: boolean }): Promise<boolean> {
+    if (this._deferred) {
+      throw new Error("Interaction already deferred.");
+    }
     this._deferred = true;
-    this._ephemeral = ephemeral || false;
+    this._ephemeral = options?.ephemeral || false;
     return new Promise(() => true);
   }
 
@@ -154,6 +165,9 @@ export class MockChatInputCommandInteraction {
   public reply(
     payload: string | InteractionReplyParameters
   ): Promise<MockInteractionMessage> {
+    if (this._deferred || this._replies.length) {
+      throw new Error("Interaction already deferred or replied.");
+    }
     if (typeof payload === "string") {
       const message = new MockInteractionMessage({
         content: payload,
@@ -192,9 +206,10 @@ export class MockChatInputCommandInteraction {
   public editReply(
     payload: string | ReplyParameters
   ): Promise<MockInteractionMessage> {
-    if (!this._deferred && !this._replies.length) {
+    if (!this._deferred && this._replies.length !== 1) {
       throw new Error("Interaction has not been deferred or replied.");
     }
+    this._replies.pop();
     const message = this.reply(payload);
     return message;
   }

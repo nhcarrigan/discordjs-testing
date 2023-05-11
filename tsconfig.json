@@ -2,5 +2,5 @@
   "extends": "@nhcarrigan/typescript-config",
   "compilerOptions": {
     "declaration": true
-  }
+  },
 }

@@ -37,10 +37,22 @@ export class MockGuild {
   }
 
   /**
+   * Gets the guild name.
+   *
+   * @returns {string} The name.
+   * @public
+   * @readonly
+   */
+  public get name(): string {
+    return this._name;
+  }
+
+  /**
    * Mock for the fetch method.
    *
    * @returns {Promise<MockGuild>} This guild.
    * @public
+   * @async
    */
   public fetch(): Promise<MockGuild> {
     return new Promise(() => this);
@@ -50,8 +62,60 @@ export class MockGuild {
    * Method for adding a ban to the guild.
    *
    * @param {BanParameters} options The ban options.
+   * @returns {Promise<MockBan>} The created ban.
+   * @public
+   * @async
    */
-  public ban(options: BanParameters) {
-    this._bans.push(new MockBan(options));
+  public ban(options: BanParameters): Promise<MockBan> {
+    const ban = new MockBan(options);
+    this._bans.push(ban);
+    return new Promise(() => ban);
+  }
+
+  /**
+   * Gets the member manager object.
+   *
+   * @returns {object} The object with a cache property and a fetch method.
+   * @public
+   * @readonly
+   */
+  public get members() {
+    return {
+      cache: this._members,
+      fetch: this.fetchMembers.bind(this),
+    };
+  }
+
+  /**
+   * Fetches a single member.
+   *
+   * @param {string} id The member to fetch.
+   * @returns {Promise<MockMember>} The fetched member.
+   * @private
+   * @async
+   */
+  private fetchMembers(id: string): Promise<MockMember>;
+  /**
+   * Fetches the full member list.
+   *
+   * @returns {Promise<MockMember[]>} The fetched members.
+   * @private
+   * @async
+   */
+  private fetchMembers(): Promise<MockMember[]>;
+  /**
+   * Mock for the members.fetch method.
+   *
+   * @param {string?} id The ID of the member to fetch.
+   * @returns {Promise<MockMember | MockMember[]>} The fetched member(s).
+   * @public
+   * @async
+   */
+  private fetchMembers(id?: string): Promise<MockMember | MockMember[]> {
+    if (id) {
+      const target = this._members.find((member) => member.id === id);
+      return new Promise(() => target || null);
+    }
+    return new Promise(() => this._members);
   }
 }

@@ -21,4 +21,15 @@ export class MockMember {
     this._user = options.user;
     this._guild = options.guild;
   }
+
+  /**
+   * Gets the member ID.
+   *
+   * @returns {string} The ID.
+   * @public
+   * @readonly
+   */
+  public get id() {
+    return this._id;
+  }
 }

@@ -35,4 +35,12 @@ export class MockMessage {
     this._embeds = options.embeds;
     this._attachments = options.attachments;
   }
+
+  public get content(): string | undefined {
+    return this._content;
+  }
+
+  public get embeds(): (EmbedBuilder | APIEmbed)[] | undefined {
+    return this._embeds;
+  }
 }

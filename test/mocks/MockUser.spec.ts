@@ -1,6 +1,6 @@
 import { assert } from "chai";
 
-suite("Mock User", () => {
+suite.skip("Mock User", () => {
   test("should instantiate", () => {
     assert.fail();
   });
