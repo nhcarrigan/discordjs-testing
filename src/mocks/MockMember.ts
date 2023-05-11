@@ -12,6 +12,7 @@ export class MockMember {
   private _id: string;
   private _user: MockUser;
   private _guild: MockGuild;
+
   /**
    * @param {MemberParameters} options The member options.
    * @public
@@ -23,9 +24,7 @@ export class MockMember {
   }
 
   /**
-   * Gets the member ID.
-   *
-   * @returns {string} The ID.
+   * @type {string}
    * @public
    * @readonly
    */

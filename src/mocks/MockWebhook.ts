@@ -29,9 +29,7 @@ export class MockWebhook {
   }
 
   /**
-   * List the sent messages.
-   *
-   * @returns {MockMessage[]} Array of messages.
+   * @type {MockMessage[]}
    * @public
    * @readonly
    */
@@ -44,6 +42,8 @@ export class MockWebhook {
    * Send a message.
    *
    * @param {ReplyParameters} options The message options.
+   * @returns {Promise<MockMessage>} The sent message.
+   * @async
    * @public
    */
   public send(options: ReplyParameters): Promise<MockMessage> {

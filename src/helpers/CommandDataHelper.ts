@@ -80,27 +80,24 @@ export class CommandDataHelper {
   }
 
   /**
-   * Gets the subcommand groups.
-   *
    * @type {APIApplicationCommandSubcommandGroupOption[]}
+   * @public
    * @readonly
    */
   public get subcommandGroups(): APIApplicationCommandSubcommandGroupOption[] {
     return this._subcommandGroups;
   }
   /**
-   * Gets the subcommands.
-   *
    * @type {APIApplicationCommandSubcommandOption[]}
+   * @public
    * @readonly
    */
   public get subcommands(): APIApplicationCommandSubcommandOption[] {
     return this._subcommands;
   }
   /**
-   * Gets the command name and description.
-   *
    * @type {{ name: string; description: string }}
+   * @public
    * @readonly
    */
   public get data(): { name: string; description: string } {

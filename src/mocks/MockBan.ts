@@ -12,6 +12,7 @@ export class MockBan {
   private _guild: MockGuild;
   private _user: MockUser;
   private _reason: string;
+
   /**
    * @param {BanParameters} options The ban options.
    * @public
@@ -23,9 +24,7 @@ export class MockBan {
   }
 
   /**
-   * Gets the guild the ban occurred in.
-   *
-   * @returns {MockGuild} The guild.
+   * @type {MockGuild}
    * @public
    * @readonly
    */
@@ -34,9 +33,7 @@ export class MockBan {
   }
 
   /**
-   * Gets the user that was banned.
-   *
-   * @returns {MockUser} The user.
+   * @type {MockUser}
    * @public
    * @readonly
    */
@@ -45,9 +42,7 @@ export class MockBan {
   }
 
   /**
-   * Gets the reason for the ban.
-   *
-   * @returns {string} The reason.
+   * @type {string}
    * @public
    * @readonly
    */

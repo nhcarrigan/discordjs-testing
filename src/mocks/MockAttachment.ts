@@ -19,7 +19,7 @@ export class MockAttachment {
   }
 
   /**
-   * @returns {string} The name of the guild.
+   * @type {string}
    * @public
    * @readonly
    */
@@ -28,7 +28,7 @@ export class MockAttachment {
   }
 
   /**
-   * @returns {string} The description of the guild.
+   * @type {string}
    * @public
    * @readonly
    */

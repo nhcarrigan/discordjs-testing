@@ -14,6 +14,7 @@ export class MockGuild {
   private _name: string;
   private _bans: MockBan[];
   private _members: MockMember[];
+
   /**
    * @param {GuildParameters} options The guild options.
    * @public
@@ -26,9 +27,7 @@ export class MockGuild {
   }
 
   /**
-   * Gets the ID.
-   *
-   * @returns {string} The ID.
+   * @type {string}
    * @public
    * @readonly
    */
@@ -37,14 +36,24 @@ export class MockGuild {
   }
 
   /**
-   * Gets the guild name.
-   *
-   * @returns {string} The name.
+   * @type {string}
    * @public
    * @readonly
    */
   public get name(): string {
     return this._name;
+  }
+
+  /**
+   * @type {object}
+   * @public
+   * @readonly
+   */
+  public get members() {
+    return {
+      cache: this._members,
+      fetch: this.fetchMembers.bind(this),
+    };
   }
 
   /**
@@ -70,20 +79,6 @@ export class MockGuild {
     const ban = new MockBan(options);
     this._bans.push(ban);
     return new Promise(() => ban);
-  }
-
-  /**
-   * Gets the member manager object.
-   *
-   * @returns {object} The object with a cache property and a fetch method.
-   * @public
-   * @readonly
-   */
-  public get members() {
-    return {
-      cache: this._members,
-      fetch: this.fetchMembers.bind(this),
-    };
   }
 
   /**

@@ -57,72 +57,64 @@ export class MockChatInputCommandInteraction {
   }
 
   /**
-   * Gets the command name.
-   *
    * @type {string}
+   * @public
    * @readonly
    */
   public get commandName(): string {
     return this._commandName;
   }
   /**
-   * Gets the subcommand group name.
-   *
    * @type {string | null}
+   * @public
    * @readonly
    */
   public get subcommandGroupName(): string | null {
     return this._subcommandGroupName;
   }
   /**
-   * Gets the subcommand name.
-   *
    * @type {string | null}
+   * @public
    * @readonly
    */
   public get subcommandName(): string | null {
     return this._subcommandName;
   }
   /**
-   * Gets the guild.
-   *
    * @type {MockGuild}
+   * @public
    * @readonly
    */
   public get guild(): MockGuild {
     return this._guild;
   }
   /**
-   * Gets the member.
-   *
    * @type {MockMember}
+   * @public
    * @readonly
    */
   public get member(): MockMember {
     return this._member;
   }
   /**
-   * Gets the user.
-   *
    * @type {MockUser}
+   * @public
    * @readonly
    */
   public get user(): MockUser {
     return this._user;
   }
   /**
-   * Gets the ephemeral state of the interaction.
-   *
    * @type {boolean}
+   * @public
    * @readonly
    */
   public get ephemeral(): boolean {
     return this._ephemeral;
   }
   /**
-   * Gets the deferred state of the interaction.
-   *
    * @type {boolean}
+   * @public
    * @readonly
    */
   public get deferred(): boolean {
@@ -130,6 +122,7 @@ export class MockChatInputCommandInteraction {
   }
   /**
    * @type {MockInteractionMessage[]}
+   * @public
    * @readonly
    */
   public get replies(): MockInteractionMessage[] {
@@ -142,6 +135,8 @@ export class MockChatInputCommandInteraction {
    *
    * @param {object} options The options for the reply.
    * @param {boolean} options.ephemeral Whether the reply should be ephemeral.
+   * @returns {Promise<boolean>} A promise that resolves to true.
+   * @async
    * @public
    */
   public deferReply(options?: { ephemeral?: boolean }): Promise<boolean> {

@@ -20,9 +20,7 @@ export class MockInteractionMessage extends MockMessage {
   }
 
   /**
-   * Gets whether the message is ephemeral.
-   *
-   * @returns {boolean} Whether the message is ephemeral.
+   * @type {boolean}
    * @public
    * @readonly
    */

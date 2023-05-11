@@ -22,6 +22,7 @@ export class MockMessage {
   private _content: string | undefined;
   private _embeds: (EmbedBuilder | APIEmbed)[] | undefined;
   private _attachments: (AttachmentBuilder | APIAttachment)[] | undefined;
+
   /**
    * @param {MessageParameters} options The message options.
    * @public

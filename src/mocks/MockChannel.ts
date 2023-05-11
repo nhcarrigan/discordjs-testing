@@ -23,9 +23,7 @@ export class MockChannel {
   }
 
   /**
-   * Gets the channel ID.
-   *
-   * @returns {string} The ID.
+   * @type {string}
    * @public
    * @readonly
    */

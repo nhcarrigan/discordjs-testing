@@ -18,6 +18,7 @@ export class MockUser {
   private _bot: boolean;
   private _system: boolean;
   private _dms: MessageParameters[];
+
   /**
    * @param {UserParameters} options The user's options.
    * @public
@@ -34,9 +35,7 @@ export class MockUser {
   }
 
   /**
-   * Gets the user's ID.
-   *
-   * @returns {string} The ID.
+   * @type {string}
    * @public
    * @readonly
    */
@@ -45,9 +44,7 @@ export class MockUser {
   }
 
   /**
-   * Gets the user's username.
-   *
-   * @returns {string} The username.
+   * @type {string}
    * @public
    * @readonly
    */
@@ -56,9 +53,7 @@ export class MockUser {
   }
 
   /**
-   * Gets the user's tag.
-   *
-   * @returns {string} The tag.
+   * @type {string}
    * @public
    * @readonly
    */
@@ -67,9 +62,7 @@ export class MockUser {
   }
 
   /**
-   * Gets the user's discriminator.
-   *
-   * @returns {number} The discriminator.
+   * @type {number}
    * @public
    * @readonly
    */
@@ -78,9 +71,7 @@ export class MockUser {
   }
 
   /**
-   * Gets the user's avatar.
-   *
-   * @returns {string} The avatar.
+   * @type {string}
    * @public
    * @readonly
    */
@@ -89,9 +80,7 @@ export class MockUser {
   }
 
   /**
-   * Gets whether the user is a bot.
-   *
-   * @returns {boolean} Whether the user is a bot.
+   * @type {boolean}
    * @public
    * @readonly
    */
@@ -100,9 +89,7 @@ export class MockUser {
   }
 
   /**
-   * Gets whether the user is a system user.
-   *
-   * @returns {boolean} Whether the user is a system user.
+   * @type {boolean}
    * @public
    * @readonly
    */
@@ -111,9 +98,7 @@ export class MockUser {
   }
 
   /**
-   * Gets the sent messages for testing.
-   *
-   * @returns {ReplyParameters[]} The sent messages.
+   * @type {ReplyParameters[]}
    * @public
    * @readonly
    */

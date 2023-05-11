@@ -25,6 +25,7 @@ import { MockUser } from "./MockUser";
  */
 export class MockCommandOptions {
   private _data: OptionParameters[];
+
   /**
    * @public
    */
