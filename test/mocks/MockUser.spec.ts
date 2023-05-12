@@ -36,7 +36,7 @@ suite("Mock User", () => {
    * Methods.
    */
 
-  test("should be able to send direct message", () => {
+  test("should be able to send direct message", async () => {
     const user = new MockUser({
       username: "test",
       avatar: "https://cdn.nhcarrigan.com/profile.png",
@@ -44,9 +44,8 @@ suite("Mock User", () => {
       discriminator: 1,
       system: false,
     });
-    user.send({ content: "test", author: user, channel }).then((message) => {
-      assert.equal(message.content, "test");
-      assert.lengthOf(user.dms, 1);
-    });
+    const msg = await user.send({ content: "test", author: user, channel });
+    assert.equal(msg.content, "test");
+    assert.lengthOf(user.dms, 1);
   });
 });

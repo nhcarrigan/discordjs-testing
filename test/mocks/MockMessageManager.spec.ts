@@ -44,28 +44,25 @@ suite("Mock Message Manager", () => {
    * Methods.
    */
 
-  test("should be able to send a message", () => {
+  test("should be able to send a message", async () => {
     const manager = new MockMessageManager(channel);
-    manager.send("hi", user).then((msg) => {
-      assert.equal(msg.content, "hi");
-    });
+    await manager.send("hi", user);
+    assert.equal(manager.cache.size, 1);
+    assert.equal(manager.cache.first()?.content, "hi");
   });
 
-  test("should be able to fetch a message", () => {
+  test("should be able to fetch a message", async () => {
     const manager = new MockMessageManager(channel);
-    manager.send("hi", user).then((msg) => {
-      manager.fetch(msg.id).then((message) => {
-        assert.equal(message?.content, "hi");
-      });
-    });
+    const result = await manager.send("hi", user);
+    const message = await manager.fetch(result.id);
+    assert.equal(message?.content, "hi");
   });
 
-  test("should be able to fetch all messages", () => {
+  test("should be able to fetch all messages", async () => {
     const manager = new MockMessageManager(channel);
-    manager.send("hi", user).then(() => {
-      manager.fetch().then((messages) => {
-        assert.equal(messages.size, 1);
-      });
-    });
+    await manager.send("hi", user);
+    await manager.send("hello", user);
+    const result = await manager.fetch();
+    assert.equal(result.size, 2);
   });
 });

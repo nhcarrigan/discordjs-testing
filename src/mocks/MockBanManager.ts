@@ -38,7 +38,7 @@ export class MockBanManager {
    * @public
    * @async
    */
-  public fetch(): Promise<Collection<string, MockBan>>;
+  public async fetch(): Promise<Collection<string, MockBan>>;
   /**
    * Fetches a single ban from the guild.
    *
@@ -47,7 +47,7 @@ export class MockBanManager {
    * @public
    * @async
    */
-  public fetch(id: string): Promise<MockBan | null>;
+  public async fetch(id: string): Promise<MockBan | null>;
   /**
    * Fetches the bans from the guild. Optionally fetches a single ban, if an id is provided.
    *
@@ -56,13 +56,13 @@ export class MockBanManager {
    * @public
    * @async
    */
-  public fetch(
+  public async fetch(
     id?: string
   ): Promise<Collection<string, MockBan> | MockBan | null> {
     if (id) {
-      return new Promise(() => this._cache.get(id) || null);
+      return this._cache.get(id) || null;
     }
-    return new Promise(() => this._cache);
+    return this._cache;
   }
 
   /**
@@ -75,7 +75,7 @@ export class MockBanManager {
    * @public
    * @async
    */
-  public create(
+  public async create(
     user: MockMember,
     options?: { reason?: string }
   ): Promise<MockMember> {
@@ -85,7 +85,7 @@ export class MockBanManager {
       guild: this._guild,
     });
     this._cache.set(ban.user.id, ban);
-    return new Promise(() => user);
+    return user;
   }
 
   /**
@@ -96,8 +96,10 @@ export class MockBanManager {
    * @public
    * @async
    */
-  public remove(user: MockUser | MockMember): Promise<MockUser | MockMember> {
+  public async remove(
+    user: MockUser | MockMember
+  ): Promise<MockUser | MockMember> {
     this._cache.delete(user.id);
-    return new Promise(() => user);
+    return user;
   }
 }

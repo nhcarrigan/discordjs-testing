@@ -56,13 +56,13 @@ export class MockRoleManager {
    * @public
    * @async
    */
-  public fetch(
+  public async fetch(
     id?: string
   ): Promise<Collection<string, MockRole> | MockRole | null> {
     if (id) {
-      return new Promise(() => this._cache.get(id) || null);
+      return this._cache.get(id) || null;
     }
-    return new Promise(() => this._cache);
+    return this._cache;
   }
 
   /**
@@ -70,11 +70,13 @@ export class MockRoleManager {
    *
    * @param { Omit<RoleParameters, "guild"> } options The options for the role.
    * @param {string?} options.reason The reason for the role.
+   * @returns {MockRole} The created role.
    * @public
    */
-  public create(options: Omit<RoleParameters, "guild">): void {
+  public create(options: Omit<RoleParameters, "guild">): MockRole {
     const role = new MockRole({ ...options, guild: this._guild });
     this._cache.set(role.id, role);
+    return role;
   }
 
   /**

@@ -55,12 +55,13 @@ suite("Mock Channel", () => {
    * Methods.
    */
 
-  test("should be able to send a message", () => {
+  test("should be able to send a message", async () => {
     const channel = new MockChannel({
       name: "test",
       type: ChannelType.GuildText,
       guild: guild,
     });
-    channel.send("test", user).then((result) => assert.exists(result));
+    const result = await channel.send("test", user);
+    assert.equal(result.content, "test");
   });
 });

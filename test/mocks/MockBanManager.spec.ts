@@ -42,21 +42,22 @@ suite("Mock Ban Manager", () => {
    * Methods.
    */
 
-  test("should be able to fetch bans", () => {
+  test("should be able to fetch bans", async () => {
     const bans = new MockBanManager(guild);
-    bans.fetch().then((result) => assert.exists(result));
+    const list = await bans.fetch();
+    assert.exists(list);
   });
 
-  test("should be able to create a ban", () => {
+  test("should be able to create a ban", async () => {
     const bans = new MockBanManager(guild);
-    bans.create(member, { reason: "stimky" });
+    await bans.create(member, { reason: "stimky" });
     assert.equal(bans.cache.size, 1);
   });
 
-  test("should be able to remove a ban", () => {
+  test("should be able to remove a ban", async () => {
     const bans = new MockBanManager(guild);
-    bans.create(member, { reason: "stimky" });
-    bans.remove(member);
+    await bans.create(member, { reason: "stimky" });
+    await bans.remove(member);
     assert.equal(bans.cache.size, 0);
   });
 });

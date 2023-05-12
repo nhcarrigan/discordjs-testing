@@ -35,15 +35,18 @@ suite("Mock Role Manager", () => {
     assert.equal(manager.cache.size, 1);
   });
 
-  test("should be able to fetch a role", () => {
+  test("should be able to fetch a role", async () => {
     const manager = new MockRoleManager(guild);
-    manager.create({ name: "test" });
-    manager.fetch("test").then((result) => assert.equal(result?.name, "test"));
+    const role = manager.create({ name: "test" });
+    const result = await manager.fetch(role.id);
+    assert.equal(result?.name, "test");
   });
 
-  test("should be able to fetch all roles", () => {
+  test("should be able to fetch all roles", async () => {
     const manager = new MockRoleManager(guild);
     manager.create({ name: "test" });
-    manager.fetch().then((result) => assert.equal(result.size, 1));
+    manager.create({ name: "test2" });
+    const result = await manager.fetch();
+    assert.equal(result.size, 2);
   });
 });

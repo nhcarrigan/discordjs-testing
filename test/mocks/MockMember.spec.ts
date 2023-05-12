@@ -88,29 +88,30 @@ suite("Mock Member", () => {
    * Methods.
    */
 
-  test("should be able to ban", () => {
+  test("should be able to ban", async () => {
     const member = new MockMember({
       user,
       guild,
     });
-    member.ban("test").then((result) => assert.exists(result));
+    const result = await member.ban("test");
+    assert.exists(result);
   });
 
-  test("should be able to kick", () => {
+  test("should be able to kick", async () => {
     const member = new MockMember({
       user,
       guild,
     });
-    member.kick();
+    const result = await member.kick();
+    assert.exists(result);
   });
 
-  test("should be able to timeout", () => {
+  test("should be able to timeout", async () => {
     const member = new MockMember({
       user,
       guild,
     });
-    member
-      .timeout(1000)
-      .then((result) => assert.equal(result.timeoutDuration, 1000));
+    const result = await member.timeout(1000);
+    assert.equal(result.timeoutDuration, 1000);
   });
 });

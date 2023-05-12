@@ -44,7 +44,7 @@ export class MockWebhook {
    * @async
    * @public
    */
-  public send(options: ReplyParameters): Promise<MockMessage> {
+  public async send(options: ReplyParameters): Promise<MockMessage> {
     const message = this._channel.send(options, this._user);
     return message;
   }

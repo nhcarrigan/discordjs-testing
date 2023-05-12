@@ -1,4 +1,4 @@
-import { Snowflake as Generator } from "@sapphire/snowflake";
+import { DiscordSnowflake } from "@sapphire/snowflake";
 
 /**
  * Simple utility class to wrap the snowflake generator.
@@ -11,7 +11,7 @@ export class Snowflake {
    * @public
    */
   constructor() {
-    this._id = new Generator(Date.now()).generate().toString(10);
+    this._id = DiscordSnowflake.generate().toString(10);
   }
 
   /**

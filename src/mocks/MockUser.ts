@@ -114,8 +114,8 @@ export class MockUser {
    * @async
    * @public
    */
-  public fetch(): Promise<MockUser> {
-    return new Promise(() => this);
+  public async fetch(): Promise<MockUser> {
+    return this;
   }
 
   /**
@@ -137,8 +137,8 @@ export class MockUser {
    * @async
    * @public
    */
-  public send(options: MessageParameters): Promise<MockMessage> {
+  public async send(options: MessageParameters): Promise<MockMessage> {
     this._dms.push(options);
-    return new Promise(() => new MockMessage(options));
+    return new MockMessage(options);
   }
 }

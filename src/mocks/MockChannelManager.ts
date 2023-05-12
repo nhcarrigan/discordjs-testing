@@ -38,7 +38,7 @@ export class MockChannelManager {
    * @public
    * @async
    */
-  public fetch(): Promise<Collection<string, MockChannel>>;
+  public async fetch(): Promise<Collection<string, MockChannel>>;
   /**
    * Fetches a single channel from the guild.
    *
@@ -47,7 +47,7 @@ export class MockChannelManager {
    * @public
    * @async
    */
-  public fetch(id: string): Promise<MockChannel | null>;
+  public async fetch(id: string): Promise<MockChannel | null>;
   /**
    * Fetches the channels from the guild. Optionally fetches a single channel, if an id is provided.
    *
@@ -56,13 +56,13 @@ export class MockChannelManager {
    * @public
    * @async
    */
-  public fetch(
+  public async fetch(
     id?: string
   ): Promise<Collection<string, MockChannel> | MockChannel | null> {
     if (id) {
-      return new Promise(() => this._cache.get(id) || null);
+      return this._cache.get(id) || null;
     }
-    return new Promise(() => this._cache);
+    return this._cache;
   }
 
   /**
@@ -74,12 +74,12 @@ export class MockChannelManager {
    * @public
    * @async
    */
-  public create(
+  public async create(
     options: Omit<ChannelParameters, "guild">
   ): Promise<MockChannel> {
     const channel = new MockChannel({ ...options, guild: this._guild });
     this._cache.set(channel.id, channel);
-    return new Promise(() => channel);
+    return channel;
   }
 
   /**
@@ -90,8 +90,8 @@ export class MockChannelManager {
    * @public
    * @async
    */
-  public delete(id: string): Promise<void> {
+  public async delete(id: string): Promise<void> {
     this._cache.delete(id);
-    return Promise.resolve();
+    return;
   }
 }

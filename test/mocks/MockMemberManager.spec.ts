@@ -44,16 +44,18 @@ suite("Mock Member Manager", () => {
     assert.equal(manager.cache.size, 1);
   });
 
-  test("should be able to fetch a member", () => {
+  test("should be able to fetch a member", async () => {
     const manager = new MockMemberManager(guild);
     const member = new MockMember({ user, guild });
     manager.add(user);
-    manager.fetch(user.id).then((result) => assert.deepEqual(result, member));
+    const result = await manager.fetch(user.id);
+    assert.deepEqual(result, member);
   });
 
-  test("should be able to fetch all members", () => {
+  test("should be able to fetch all members", async () => {
     const manager = new MockMemberManager(guild);
     manager.add(user);
-    manager.fetch().then((result) => assert.equal(result.size, 1));
+    const result = await manager.fetch();
+    assert.equal(result.size, 1);
   });
 });

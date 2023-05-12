@@ -39,7 +39,7 @@ suite("Mock Webhook", () => {
    * Methods.
    */
 
-  test("should be able to send message", () => {
+  test("should be able to send message", async () => {
     const webhook = new MockWebhook({
       user: new MockUser({
         username: "test",
@@ -55,9 +55,7 @@ suite("Mock Webhook", () => {
       }),
     });
 
-    webhook.send({ content: "test" }).then((message) => {
-      assert.exists(message);
-      assert.equal(message.content, "test");
-    });
+    const msg = await webhook.send({ content: "test" });
+    assert.equal(msg.content, "test");
   });
 });
