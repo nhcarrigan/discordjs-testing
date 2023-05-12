@@ -2,7 +2,7 @@
   "name": "discordjs-testing",
   "version": "0.0.0-alpha",
   "description": "Helper package for testing DiscordJS bots with Mocha/Chai",
-  "main": "prod/index.ts",
+  "main": "prod/index.js",
   "scripts": {
     "prebuild": "rm -rf prod",
     "build": "tsc",
