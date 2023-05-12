@@ -75,7 +75,6 @@ export class MockMember {
   /**
    * @type {boolean}
    * @public
-   * @readonly
    */
   public get bannable() {
     return this._bannable;
@@ -84,10 +83,25 @@ export class MockMember {
   /**
    * @type {boolean}
    * @public
-   * @readonly
+   */
+  public set bannable(value: boolean) {
+    this._bannable = value;
+  }
+
+  /**
+   * @type {boolean}
+   * @public
    */
   public get kickable() {
     return this._kickable;
+  }
+
+  /**
+   * @type {boolean}
+   * @public
+   */
+  public set kickable(value: boolean) {
+    this._kickable = value;
   }
 
   /**
