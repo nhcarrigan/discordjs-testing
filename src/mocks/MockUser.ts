@@ -1,6 +1,7 @@
 import { MessageParameters } from "../interfaces/MessageParameters";
 import { ReplyParameters } from "../interfaces/ReplyParameters";
 import { UserParameters } from "../interfaces/UserParameters";
+import { Snowflake } from "../utils/Snowflake";
 
 import { MockMessage } from "./MockMessage";
 
@@ -24,7 +25,7 @@ export class MockUser {
    * @public
    */
   constructor(options: UserParameters) {
-    this._id = options.id;
+    this._id = new Snowflake().id;
     this._username = options.username;
     this._discriminator = options.discriminator;
     this._tag = `${options.username}#${options.discriminator}`;

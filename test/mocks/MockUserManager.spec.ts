@@ -1,11 +1,18 @@
 import { assert } from "chai";
 
+import { MockGuild } from "../../src/mocks/MockGuild";
+import { MockUserManager } from "../../src/mocks/MockUserManager";
+
+const guild = new MockGuild({ name: "test" });
+
 suite("Mock User Manager", () => {
   /**
    * Instantiation.
    */
   test("should instantiate", () => {
-    assert.fail();
+    const manager = new MockUserManager(guild);
+    assert.exists(manager);
+    assert.instanceOf(manager, MockUserManager);
   });
 
   /**
@@ -13,7 +20,9 @@ suite("Mock User Manager", () => {
    */
 
   test("should have a cache property", () => {
-    assert.fail();
+    const manager = new MockUserManager(guild);
+    assert.exists(manager.cache);
+    assert.equal(manager.cache.size, 0);
   });
 
   /**
@@ -21,10 +30,32 @@ suite("Mock User Manager", () => {
    */
 
   test("should be able to fetch a user", () => {
-    assert.fail();
+    const manager = new MockUserManager(guild);
+    manager
+      .add({
+        username: "test",
+        avatar: "https://cdn.nhcarrigan.com/profile.png",
+        bot: false,
+        discriminator: 1,
+        system: false,
+      })
+      .then((user) => {
+        manager.fetch(user.id).then((result) => assert.deepEqual(result, user));
+      });
   });
 
   test("should be able to fetch all user", () => {
-    assert.fail();
+    const manager = new MockUserManager(guild);
+    manager
+      .add({
+        username: "test",
+        avatar: "https://cdn.nhcarrigan.com/profile.png",
+        bot: false,
+        discriminator: 1,
+        system: false,
+      })
+      .then(() => {
+        manager.fetch().then((result) => assert.equal(result.size, 1));
+      });
   });
 });

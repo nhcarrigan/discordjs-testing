@@ -1,8 +1,12 @@
 import { BanParameters } from "../interfaces/BanParameters";
 import { GuildParameters } from "../interfaces/GuildParameters";
+import { Snowflake } from "../utils/Snowflake";
 
 import { MockBan } from "./MockBan";
-import { MockMember } from "./MockMember";
+import { MockBanManager } from "./MockBanManager";
+import { MockChannelManager } from "./MockChannelManager";
+import { MockMemberManager } from "./MockMemberManager";
+import { MockRoleManager } from "./MockRoleManager";
 
 /**
  * Mocks a discord.js Guild.
@@ -12,18 +16,22 @@ import { MockMember } from "./MockMember";
 export class MockGuild {
   private _id: string;
   private _name: string;
-  private _bans: MockBan[];
-  private _members: MockMember[];
+  private _bans: MockBanManager;
+  private _members: MockMemberManager;
+  private _channels: MockChannelManager;
+  private _roles: MockRoleManager;
 
   /**
    * @param {GuildParameters} options The guild options.
    * @public
    */
   constructor(options: GuildParameters) {
-    this._id = options.id;
+    this._id = new Snowflake().id;
     this._name = options.name;
-    this._bans = [];
-    this._members = [];
+    this._bans = new MockBanManager(this);
+    this._members = new MockMemberManager(this);
+    this._channels = new MockChannelManager(this);
+    this._roles = new MockRoleManager(this);
   }
 
   /**
@@ -45,15 +53,30 @@ export class MockGuild {
   }
 
   /**
-   * @type {object}
+   * @type {MockMemberManager}
    * @public
    * @readonly
    */
   public get members() {
-    return {
-      cache: this._members,
-      fetch: this.fetchMembers.bind(this),
-    };
+    return this._members;
+  }
+
+  /**
+   * @type {MockChannelManager}
+   * @public
+   * @readonly
+   */
+  public get channels() {
+    return this._channels;
+  }
+
+  /**
+   * @type {MockRoleManager}
+   * @public
+   * @readonly
+   */
+  public get roles() {
+    return this._roles;
   }
 
   /**
@@ -72,45 +95,12 @@ export class MockGuild {
    *
    * @param {BanParameters} options The ban options.
    * @returns {Promise<MockBan>} The created ban.
-   * @public
+   * @package
    * @async
    */
   public ban(options: BanParameters): Promise<MockBan> {
     const ban = new MockBan(options);
-    this._bans.push(ban);
+    this._bans.create(options.member, ban);
     return new Promise(() => ban);
-  }
-
-  /**
-   * Fetches a single member.
-   *
-   * @param {string} id The member to fetch.
-   * @returns {Promise<MockMember>} The fetched member.
-   * @private
-   * @async
-   */
-  private fetchMembers(id: string): Promise<MockMember>;
-  /**
-   * Fetches the full member list.
-   *
-   * @returns {Promise<MockMember[]>} The fetched members.
-   * @private
-   * @async
-   */
-  private fetchMembers(): Promise<MockMember[]>;
-  /**
-   * Mock for the members.fetch method.
-   *
-   * @param {string?} id The ID of the member to fetch.
-   * @returns {Promise<MockMember | MockMember[]>} The fetched member(s).
-   * @public
-   * @async
-   */
-  private fetchMembers(id?: string): Promise<MockMember | MockMember[]> {
-    if (id) {
-      const target = this._members.find((member) => member.id === id);
-      return new Promise(() => target || null);
-    }
-    return new Promise(() => this._members);
   }
 }

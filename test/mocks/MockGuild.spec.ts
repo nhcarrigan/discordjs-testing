@@ -1,15 +1,17 @@
 import { assert } from "chai";
 
+import { MockChannelManager } from "../../src/mocks/MockChannelManager";
 import { MockGuild } from "../../src/mocks/MockGuild";
+import { MockMemberManager } from "../../src/mocks/MockMemberManager";
+import { MockRoleManager } from "../../src/mocks/MockRoleManager";
 
 suite("Mock Guild", () => {
-  test("should instantiate", () => {
-    /**
-     * Instantiation.
-     */
+  /**
+   * Instantiation.
+   */
 
+  test("should instantiate", () => {
     const guild = new MockGuild({
-      id: "1",
       name: "test",
     });
     assert.exists(guild);
@@ -21,22 +23,30 @@ suite("Mock Guild", () => {
    */
 
   test("should have members property", () => {
-    assert.fail();
+    const guild = new MockGuild({
+      name: "test",
+    });
+    assert.exists(guild.members);
+    assert.instanceOf(guild.members, MockMemberManager);
   });
 
   test("should have channels property", () => {
-    assert.fail();
+    const guild = new MockGuild({
+      name: "test",
+    });
+    assert.exists(guild.channels);
+    assert.instanceOf(guild.channels, MockChannelManager);
   });
 
   test("should have roles property", () => {
-    assert.fail();
+    const guild = new MockGuild({
+      name: "test",
+    });
+    assert.exists(guild.roles);
+    assert.instanceOf(guild.roles, MockRoleManager);
   });
 
   /**
    * Methods.
    */
-
-  test("should be able to create a channel", () => {
-    assert.fail();
-  });
 });

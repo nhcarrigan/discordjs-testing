@@ -19,7 +19,7 @@ export class MockBan {
    */
   constructor(options: BanParameters) {
     this._guild = options.guild;
-    this._user = options.user;
+    this._user = options.member.user;
     this._reason = options.reason;
   }
 

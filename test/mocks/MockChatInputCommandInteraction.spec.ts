@@ -7,42 +7,33 @@ import { MockGuild } from "../../src/mocks/MockGuild";
 import { MockMember } from "../../src/mocks/MockMember";
 import { MockUser } from "../../src/mocks/MockUser";
 
+const guild = new MockGuild({
+  name: "test",
+});
+const user = new MockUser({
+  username: "test",
+  avatar: "https://cdn.nhcarrigan.com/profile.png",
+  bot: false,
+  discriminator: 1,
+  system: false,
+});
+const member = new MockMember({
+  guild,
+  user,
+});
+const channel = new MockChannel({
+  name: "test",
+  type: ChannelType.GuildText,
+  guild: guild,
+});
+
 const baseInteractionOpts = {
   commandName: "test",
-  guild: new MockGuild({
-    id: "1",
-    name: "test",
-  }),
-  member: new MockMember({
-    id: "1",
-    guild: new MockGuild({
-      id: "1",
-      name: "test",
-    }),
-    user: new MockUser({
-      id: "1",
-      username: "test",
-      avatar: "https://cdn.nhcarrigan.com/profile.png",
-      bot: false,
-      discriminator: 1,
-      system: false,
-    }),
-  }),
-  user: new MockUser({
-    id: "1",
-    username: "test",
-    avatar: "https://cdn.nhcarrigan.com/profile.png",
-    bot: false,
-    discriminator: 1,
-    system: false,
-  }),
-  channel: new MockChannel({
-    id: "1",
-    name: "test",
-    type: ChannelType.GuildText,
-  }),
+  guild,
+  member,
+  user,
+  channel,
   bot: new MockUser({
-    id: "1",
     username: "test",
     avatar: "https://cdn.nhcarrigan.com/profile.png",
     bot: true,
@@ -134,6 +125,13 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.isFalse(interaction.deferred);
   });
 
+  test("should have options property", () => {
+    const interaction = new MockChatInputCommandInteraction(
+      baseInteractionOpts
+    );
+    assert.exists(interaction.options);
+  });
+
   /**
    * Methods.
    */
@@ -217,9 +215,5 @@ suite("Mock Chat Input Command Interaction", () => {
       baseInteractionOpts
     );
     assert.throws(() => interaction.editReply("test"));
-  });
-
-  test("should be able to get options by type", () => {
-    assert.fail();
   });
 });

@@ -1,4 +1,3 @@
-import { Snowflake } from "@sapphire/snowflake";
 import { ChatInputCommandInteraction } from "discord.js";
 
 import { ChatInputCommandInteractionParameters } from "../interfaces/ChatInputCommandInteractionParameters";
@@ -8,6 +7,7 @@ import {
 } from "../interfaces/ReplyParameters";
 
 import { MockChannel } from "./MockChannel";
+import { MockCommandOptions } from "./MockCommandOptions";
 import { MockGuild } from "./MockGuild";
 import { MockInteractionMessage } from "./MockInteractionMessage";
 import { MockMember } from "./MockMember";
@@ -22,12 +22,7 @@ export class MockChatInputCommandInteraction {
   private _commandName: string;
   private _subcommandGroupName: string | null;
   private _subcommandName: string | null;
-  private _options: {
-    name: string;
-    value: unknown;
-    type: string;
-    required?: boolean;
-  }[];
+  private _options: MockCommandOptions;
   private _guild: MockGuild;
   private _member: MockMember;
   private _user: MockUser;
@@ -45,7 +40,7 @@ export class MockChatInputCommandInteraction {
     this._commandName = options.commandName;
     this._subcommandGroupName = options.subcommandGroupName || null;
     this._subcommandName = options.subcommandName || null;
-    this._options = options.options || [];
+    this._options = new MockCommandOptions();
     this._guild = options.guild;
     this._member = options.member;
     this._user = options.user;
@@ -54,6 +49,9 @@ export class MockChatInputCommandInteraction {
     this._replies = [];
     this._channel = options.channel;
     this._bot = options.bot;
+    for (const option of options.options || []) {
+      this._options.addOption(option);
+    }
   }
 
   /**
@@ -128,6 +126,14 @@ export class MockChatInputCommandInteraction {
   public get replies(): MockInteractionMessage[] {
     return this._replies;
   }
+  /**
+   * @type {MockCommandOptions}
+   * @public
+   * @readonly
+   */
+  public get options(): MockCommandOptions {
+    return this._options;
+  }
 
   /**
    * Mock for the deferReply method.
@@ -168,7 +174,6 @@ export class MockChatInputCommandInteraction {
         content: payload,
         author: this._bot,
         channel: this._channel,
-        id: new Snowflake(Date.now()).generate().toString(10),
         ephemeral: this._ephemeral,
       });
       this._replies.push(message);
@@ -182,7 +187,6 @@ export class MockChatInputCommandInteraction {
       ephemeral,
       author: this._bot,
       channel: this._channel,
-      id: new Snowflake(Date.now()).generate().toString(10),
     });
     this._replies.push(message);
     return new Promise(() => message);

@@ -1,8 +1,8 @@
 import { MockGuild } from "../mocks/MockGuild";
-import { MockUser } from "../mocks/MockUser";
+import { MockMember } from "../mocks/MockMember";
 
 export interface BanParameters {
   guild: MockGuild;
-  user: MockUser;
+  member: MockMember;
   reason: string;
 }

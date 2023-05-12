@@ -1,4 +1,7 @@
-import { ApplicationCommandOptionType } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} from "discord.js";
 
 import {
   AttachmentOptionParameters,
@@ -6,6 +9,7 @@ import {
   ChannelOptionParameters,
   IntegerOptionParameters,
   MentionableOptionParameters,
+  MessageOptionParameters,
   NumberOptionParameters,
   OptionParameters,
   RoleOptionParameters,
@@ -15,6 +19,7 @@ import {
 
 import { MockAttachment } from "./MockAttachment";
 import { MockChannel } from "./MockChannel";
+import { MockMessage } from "./MockMessage";
 import { MockRole } from "./MockRole";
 import { MockUser } from "./MockUser";
 
@@ -34,10 +39,19 @@ export class MockCommandOptions {
   }
 
   /**
+   * @type {OptionParameters[]}
+   * @package
+   * @readonly
+   */
+  public get data(): OptionParameters[] {
+    return this._data;
+  }
+
+  /**
    * Adds an option.
    *
    * @param {OptionParameters} option The option to add.
-   * @public
+   * @package
    */
   public addOption(option: OptionParameters) {
     this._data.push(option);
@@ -225,6 +239,25 @@ export class MockCommandOptions {
         opt.name === name &&
         opt.type === ApplicationCommandOptionType.Attachment
     ) as AttachmentOptionParameters | undefined;
+    if (!result && required) {
+      throw new Error(`Could not find required user option ${name}`);
+    }
+    return result?.value;
+  }
+
+  /**
+   * Mock for the getMessage method.
+   * Gets a message option.
+   *
+   * @param {string} name The name of the option to get.
+   * @param {boolean} required Whether the option is required.
+   * @returns {MockMessage | undefined} The option if found, undefined otherwise.
+   * @public
+   */
+  public getMessage(name: string, required?: boolean): MockMessage | undefined {
+    const result = this._data.find(
+      (opt) => opt.name === name && opt.type === ApplicationCommandType.Message
+    ) as MessageOptionParameters | undefined;
     if (!result && required) {
       throw new Error(`Could not find required user option ${name}`);
     }

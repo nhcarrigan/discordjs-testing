@@ -2,16 +2,20 @@ import { assert } from "chai";
 
 import { MockBanManager } from "../../src/mocks/MockBanManager";
 import { MockGuild } from "../../src/mocks/MockGuild";
+import { MockMember } from "../../src/mocks/MockMember";
 import { MockUser } from "../../src/mocks/MockUser";
 
-const guild = new MockGuild({ id: "1", name: "test" });
+const guild = new MockGuild({ name: "test" });
 const user = new MockUser({
-  id: "1",
   username: "test",
   avatar: "https://cdn.nhcarrigan.com/profile.png",
   bot: false,
   discriminator: 1,
   system: false,
+});
+const member = new MockMember({
+  user,
+  guild,
 });
 
 suite("Mock Ban Manager", () => {
@@ -45,14 +49,14 @@ suite("Mock Ban Manager", () => {
 
   test("should be able to create a ban", () => {
     const bans = new MockBanManager(guild);
-    bans.create(user, { reason: "stimky" });
+    bans.create(member, { reason: "stimky" });
     assert.equal(bans.cache.size, 1);
   });
 
   test("should be able to remove a ban", () => {
     const bans = new MockBanManager(guild);
-    bans.create(user, { reason: "stimky" });
-    bans.remove(user);
+    bans.create(member, { reason: "stimky" });
+    bans.remove(member);
     assert.equal(bans.cache.size, 0);
   });
 });

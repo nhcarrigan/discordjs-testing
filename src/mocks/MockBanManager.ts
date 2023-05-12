@@ -71,28 +71,33 @@ export class MockBanManager {
    * @param {MockUser | MockMember} user The user to ban.
    * @param { { reason?: string } } options The options for the ban.
    * @param {string?} options.reason The reason for the ban.
+   * @returns {Promise<MockUser | MockMember>} The banned user.
    * @public
+   * @async
    */
   public create(
-    user: MockUser | MockMember,
+    user: MockMember,
     options?: { reason?: string }
-  ): void {
+  ): Promise<MockMember> {
     const ban = new MockBan({
-      user: user instanceof MockMember ? user.user : user,
+      member: user,
       reason: options?.reason || "No reason provided.",
       guild: this._guild,
     });
     this._cache.set(ban.user.id, ban);
+    return new Promise(() => user);
   }
 
   /**
    * Removes a ban from the guild.
    *
    * @param {MockUser | MockMember} user The user to unban.
-   * @param { { reason?: string } } options The options for the ban.
-   * @param {string?} options.reason The reason for the ban.
+   * @returns {Promise<MockUser | MockMember>} The unbanned user.
+   * @public
+   * @async
    */
-  public remove(user: MockUser | MockMember, options?: { reason?: string }) {
+  public remove(user: MockUser | MockMember): Promise<MockUser | MockMember> {
     this._cache.delete(user.id);
+    return new Promise(() => user);
   }
 }

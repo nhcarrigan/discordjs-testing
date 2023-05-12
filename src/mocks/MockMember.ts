@@ -1,6 +1,7 @@
 import { MemberParameters } from "../interfaces/MemberParameters";
 
 import { MockGuild } from "./MockGuild";
+import { MockRoleManager } from "./MockRoleManager";
 import { MockUser } from "./MockUser";
 
 /**
@@ -12,15 +13,23 @@ export class MockMember {
   private _id: string;
   private _user: MockUser;
   private _guild: MockGuild;
+  private _roles: MockRoleManager;
+  private _timeoutDuration: number;
+  private _bannable: boolean;
+  private _kickable: boolean;
 
   /**
    * @param {MemberParameters} options The member options.
    * @public
    */
   constructor(options: MemberParameters) {
-    this._id = options.id;
+    this._id = options.user.id;
     this._user = options.user;
     this._guild = options.guild;
+    this._roles = new MockRoleManager(this._guild);
+    this._timeoutDuration = 0;
+    this._bannable = options.bannable || false;
+    this._kickable = options.kickable || false;
   }
 
   /**
@@ -30,5 +39,99 @@ export class MockMember {
    */
   public get id() {
     return this._id;
+  }
+
+  /**
+   * @type {MockUser}
+   * @public
+   * @readonly
+   */
+  public get user() {
+    return this._user;
+  }
+
+  /**
+   * @type {MockGuild}
+   * @public
+   * @readonly
+   */
+  public get guild() {
+    return this._guild;
+  }
+
+  /**
+   * @type {MockRoleManager}
+   * @public
+   * @readonly
+   */
+  public get roles() {
+    return this._roles;
+  }
+
+  /**
+   * @type {boolean}
+   * @public
+   * @readonly
+   */
+  public get bannable() {
+    return this._bannable;
+  }
+
+  /**
+   * @type {boolean}
+   * @public
+   * @readonly
+   */
+  public get kickable() {
+    return this._kickable;
+  }
+
+  /**
+   * @type {number}
+   * @public
+   * @readonly
+   */
+  public get timeoutDuration() {
+    return this._timeoutDuration;
+  }
+
+  /**
+   * Bans the member.
+   *
+   * @param {string} reason The reason for the ban.
+   * @public
+   * @async
+   */
+  public ban(reason: string): Promise<MockMember> {
+    this._guild.ban({
+      reason,
+      member: this,
+      guild: this._guild,
+    });
+    return new Promise(() => this);
+  }
+
+  /**
+   * Kicks the member.
+   *
+   * @returns {Promise<MockMember>} The member.
+   * @public
+   * @async
+   */
+  public kick(): Promise<MockMember> {
+    this._guild.members.remove(this._id);
+    return new Promise(() => this);
+  }
+
+  /**
+   * Sets a timeout on the member.
+   *
+   * @param {number} timeout The timeout in milliseconds.
+   * @public
+   * @async
+   */
+  public timeout(timeout: number): Promise<MockMember> {
+    this._timeoutDuration = timeout;
+    return new Promise(() => this);
   }
 }

@@ -1,7 +1,11 @@
-import { ApplicationCommandOptionType } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+} from "discord.js";
 
 import { MockAttachment } from "../mocks/MockAttachment";
 import { MockChannel } from "../mocks/MockChannel";
+import { MockMessage } from "../mocks/MockMessage";
 import { MockRole } from "../mocks/MockRole";
 import { MockUser } from "../mocks/MockUser";
 
@@ -14,7 +18,8 @@ export type OptionParameters =
   | MentionableOptionParameters
   | NumberOptionParameters
   | RoleOptionParameters
-  | AttachmentOptionParameters;
+  | AttachmentOptionParameters
+  | MessageOptionParameters;
 export interface StringOptionParameters {
   name: string;
   value: string;
@@ -75,5 +80,12 @@ export interface AttachmentOptionParameters {
   name: string;
   value: MockAttachment;
   type: ApplicationCommandOptionType.Attachment;
+  required?: boolean;
+}
+
+export interface MessageOptionParameters {
+  name: string;
+  value: MockMessage;
+  type: ApplicationCommandType.Message;
   required?: boolean;
 }

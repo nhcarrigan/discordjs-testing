@@ -1,4 +1,3 @@
-import { Snowflake } from "@sapphire/snowflake";
 import { WebhookClient } from "discord.js";
 
 import { ReplyParameters } from "../interfaces/ReplyParameters";
@@ -6,6 +5,7 @@ import { WebhookParameters } from "../interfaces/WebhookParameters";
 
 import { MockChannel } from "./MockChannel";
 import { MockMessage } from "./MockMessage";
+import { MockMessageManager } from "./MockMessageManager";
 import { MockUser } from "./MockUser";
 
 /**
@@ -14,7 +14,6 @@ import { MockUser } from "./MockUser";
  * @class
  */
 export class MockWebhook {
-  private _messages: MockMessage[];
   private _user: MockUser;
   private _channel: MockChannel;
 
@@ -23,18 +22,17 @@ export class MockWebhook {
    * @public
    */
   constructor(options: WebhookParameters) {
-    this._messages = [];
     this._user = options.user;
     this._channel = options.channel;
   }
 
   /**
-   * @type {MockMessage[]}
+   * @type {MockMessageManager}
    * @public
    * @readonly
    */
-  public get messages(): MockMessage[] {
-    return this._messages;
+  public get messages(): MockMessageManager {
+    return this._channel.messages;
   }
 
   /**
@@ -47,14 +45,8 @@ export class MockWebhook {
    * @public
    */
   public send(options: ReplyParameters): Promise<MockMessage> {
-    const message = new MockMessage({
-      content: options.content,
-      author: this._user,
-      channel: this._channel,
-      id: new Snowflake(Date.now()).generate().toString(10),
-    });
-    this._messages.push(message);
-    return new Promise(() => message);
+    const message = this._channel.send(options, this._user);
+    return message;
   }
 
   /**

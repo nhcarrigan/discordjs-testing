@@ -1,6 +1,16 @@
 import { assert } from "chai";
 
 import { MockUser } from "../../src/mocks/MockUser";
+import { MockGuild } from "../../src/mocks/MockGuild";
+import { ChannelType } from "discord.js";
+import { MockChannel } from "../../src/mocks/MockChannel";
+
+const guild = new MockGuild({ name: "test" });
+const channel = new MockChannel({
+  name: "test",
+  type: ChannelType.GuildText,
+  guild: guild,
+});
 
 suite("Mock User", () => {
   test("should instantiate", () => {
@@ -8,7 +18,6 @@ suite("Mock User", () => {
      * Instantiation.
      */
     const user = new MockUser({
-      id: "1",
       username: "test",
       avatar: "https://cdn.nhcarrigan.com/profile.png",
       bot: false,
@@ -28,6 +37,16 @@ suite("Mock User", () => {
    */
 
   test("should be able to send direct message", () => {
-    assert.fail();
+    const user = new MockUser({
+      username: "test",
+      avatar: "https://cdn.nhcarrigan.com/profile.png",
+      bot: false,
+      discriminator: 1,
+      system: false,
+    });
+    user.send({ content: "test", author: user, channel }).then((message) => {
+      assert.equal(message.content, "test");
+      assert.lengthOf(user.dms, 1);
+    });
   });
 });
