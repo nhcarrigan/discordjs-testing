@@ -159,14 +159,16 @@ export class MockChatInputCommandInteraction {
    * Sends a reply. Adds the reply payload to the replies array.
    *
    * @param {string | InteractionReplyParameters} payload The reply payload.
+   * @param {boolean} edited Whether the reply should be edited.
    * @returns {Promise<MockInteractionMessage>} The message.
    * @async
    * @public
    */
   public async reply(
-    payload: string | InteractionReplyParameters
+    payload: string | InteractionReplyParameters,
+    edited = false
   ): Promise<MockInteractionMessage> {
-    if (this._deferred || this._replies.length) {
+    if ((this._deferred || this._replies.length) && !edited) {
       throw new Error("Interaction already deferred or replied.");
     }
     if (typeof payload === "string") {
@@ -209,7 +211,7 @@ export class MockChatInputCommandInteraction {
       throw new Error("Interaction has not been deferred or replied.");
     }
     this._replies.pop();
-    const message = this.reply(payload);
+    const message = this.reply(payload, true);
     return message;
   }
 

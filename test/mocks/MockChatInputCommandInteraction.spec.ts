@@ -209,12 +209,12 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.equal(errMessage, "Interaction already deferred or replied.");
   });
 
-  test("should be able to edit reply", () => {
+  test("should be able to edit reply", async () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
-    interaction.reply("test");
-    interaction.editReply("test2");
+    await interaction.reply("test");
+    await interaction.editReply("test2");
     assert.equal(interaction.replies[0].content, "test2");
   });
 
