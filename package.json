@@ -1,31 +1,37 @@
 {
-  "name": "nodejs-typescript-template",
+  "name": "discordjs-testing",
   "version": "0.0.0",
-  "description": "A template for my nodejs projects",
-  "main": "prod/index.js",
+  "description": "Helper package for testing DiscordJS bots with Mocha/Chai",
+  "main": "prod/index.ts",
   "scripts": {
+    "prebuild": "rm -rf prod",
     "build": "tsc",
     "lint": "eslint src test --max-warnings 0",
     "start": "node -r dotenv/config prod/index.js",
-    "test": "ts-mocha -u tdd  test/**/*.spec.ts --recursive --exit --timeout 10000"
+    "test": "ts-mocha -u tdd test/index.spec.ts test/**/*.spec.ts --recursive --timeout 10000",
+    "prepack": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/naomi-lgbt/nodejs-typescript-template.git"
+    "url": "git+ssh://git@github.com/nhcarrigan/discordjs-testing.git"
   },
   "keywords": [
-    "template",
     "typescript",
-    "eslint",
-    "nodejs",
-    "prettier"
+    "discord.js",
+    "discord",
+    "testing",
+    "mocks"
   ],
   "author": "Naomi Carrigan",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/naomi-lgbt/nodejs-typescript-template/issues"
+    "url": "https://github.com/nhcarrigan/discordjs-testing/issues"
   },
-  "homepage": "https://github.com/naomi-lgbt/nodejs-typescript-template#readme",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/naomi-lgbt"
+  },
+  "homepage": "https://github.com/nhcarrigan/discordjs-testing#readme",
   "dependencies": {
     "dotenv": "16.0.3",
     "winston": "3.8.2"
@@ -43,5 +49,8 @@
     "prettier": "2.8.8",
     "ts-mocha": "10.0.0",
     "typescript": "5.0.4"
+  },
+  "peerDependencies": {
+    "discord.js": "14.10.2"
   }
 }

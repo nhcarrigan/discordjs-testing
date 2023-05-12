@@ -1,0 +1,12 @@
+/.github/
+/src/
+/test/
+.env
+.eslintrc.json
+.gitattributes
+.prettierrc
+renovate.json
+
+
+# Ignore this for local development
+*.tgz
