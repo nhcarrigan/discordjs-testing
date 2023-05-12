@@ -1,7 +1,7 @@
 import { ChannelType } from "discord.js";
 
-import { ReplyParameters } from "../../prod/interfaces/ReplyParameters";
 import { ChannelParameters } from "../interfaces/ChannelParameters";
+import { ReplyParameters } from "../interfaces/ReplyParameters";
 import { Snowflake } from "../utils/Snowflake";
 
 import { MockGuild } from "./MockGuild";
