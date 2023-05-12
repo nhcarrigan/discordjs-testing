@@ -1,9 +1,9 @@
 import { assert } from "chai";
-
-import { MockUser } from "../../src/mocks/MockUser";
-import { MockGuild } from "../../src/mocks/MockGuild";
 import { ChannelType } from "discord.js";
+
 import { MockChannel } from "../../src/mocks/MockChannel";
+import { MockGuild } from "../../src/mocks/MockGuild";
+import { MockUser } from "../../src/mocks/MockUser";
 
 const guild = new MockGuild({ name: "test" });
 const channel = new MockChannel({

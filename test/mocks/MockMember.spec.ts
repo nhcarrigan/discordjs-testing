@@ -2,8 +2,8 @@ import { assert } from "chai";
 
 import { MockGuild } from "../../src/mocks/MockGuild";
 import { MockMember } from "../../src/mocks/MockMember";
-import { MockUser } from "../../src/mocks/MockUser";
 import { MockRoleManager } from "../../src/mocks/MockRoleManager";
+import { MockUser } from "../../src/mocks/MockUser";
 
 const user = new MockUser({
   username: "test",

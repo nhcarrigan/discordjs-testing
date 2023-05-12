@@ -1,3 +1,5 @@
+import { PermissionsBitField } from "discord.js";
+
 import { MemberParameters } from "../interfaces/MemberParameters";
 
 import { MockGuild } from "./MockGuild";
@@ -17,6 +19,7 @@ export class MockMember {
   private _timeoutDuration: number;
   private _bannable: boolean;
   private _kickable: boolean;
+  private _permissions: PermissionsBitField;
 
   /**
    * @param {MemberParameters} options The member options.
@@ -30,6 +33,7 @@ export class MockMember {
     this._timeoutDuration = 0;
     this._bannable = options.bannable || false;
     this._kickable = options.kickable || false;
+    this._permissions = new PermissionsBitField();
   }
 
   /**
@@ -93,6 +97,15 @@ export class MockMember {
    */
   public get timeoutDuration() {
     return this._timeoutDuration;
+  }
+
+  /**
+   * @type {PermissionsBitField}
+   * @public
+   * @readonly
+   */
+  public get permissions() {
+    return this._permissions;
   }
 
   /**
