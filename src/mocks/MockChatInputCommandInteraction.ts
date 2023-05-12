@@ -217,10 +217,11 @@ export class MockChatInputCommandInteraction {
    * Casts the type to a ChatInputCommandInteraction
    * for use in tests.
    *
+   * @template T The type to cast to.
    * @returns {ChatInputCommandInteraction} The mock with a coerced type.
    * @public
    */
-  public typeCast(): ChatInputCommandInteraction {
-    return this as unknown as ChatInputCommandInteraction;
+  public typeCast<T extends "cached">(): ChatInputCommandInteraction<T> {
+    return this as unknown as ChatInputCommandInteraction<T>;
   }
 }
