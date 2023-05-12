@@ -30,30 +30,28 @@ suite("Mock Channel Manager", () => {
    * Methods.
    */
 
-  test("should be able to fetch channels", () => {
+  test("should be able to fetch channels", async () => {
     const channels = new MockChannelManager(guild);
-    channels.fetch().then((result) => assert.exists(result));
+    const result = await channels.fetch();
+    assert.exists(result);
   });
 
-  test("should be able to create a channel", () => {
+  test("should be able to create a channel", async () => {
     const channels = new MockChannelManager(guild);
-    channels.create({
+    await channels.create({
       name: "test",
       type: ChannelType.GuildText,
     });
     assert.equal(channels.cache.size, 1);
   });
 
-  test("should be able to remove a channel", () => {
+  test("should be able to remove a channel", async () => {
     const channels = new MockChannelManager(guild);
-    channels
-      .create({
-        name: "test",
-        type: ChannelType.GuildText,
-      })
-      .then((channel) => {
-        channels.delete(channel.id);
-        assert.equal(channels.cache.size, 0);
-      });
+    const created = await channels.create({
+      name: "test",
+      type: ChannelType.GuildText,
+    });
+    await channels.delete(created.id);
+    assert.equal(channels.cache.size, 0);
   });
 });

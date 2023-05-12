@@ -136,45 +136,49 @@ suite("Mock Chat Input Command Interaction", () => {
    * Methods.
    */
 
-  test("should be able to defer reply", () => {
+  test("should be able to defer reply", async () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
-    interaction.deferReply();
+    await interaction.deferReply();
     assert.isTrue(interaction.deferred);
   });
 
-  test("should be able to defer reply as ephemeral", () => {
+  test("should be able to defer reply as ephemeral", async () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
-    interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply({ ephemeral: true });
     assert.isTrue(interaction.deferred);
     assert.isTrue(interaction.ephemeral);
   });
 
-  test("should not be able to defer twice", () => {
+  test("should not be able to defer twice", async () => {
+    let errorMsg = "";
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
-    interaction.deferReply();
-    assert.throws(interaction.deferReply);
+    await interaction.deferReply();
+    await interaction.deferReply().catch((err) => {
+      errorMsg = err.message;
+    });
+    assert.equal(errorMsg, "Interaction already deferred.");
   });
 
-  test("should be able to reply with string", () => {
+  test("should be able to reply with string", async () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
-    interaction.reply("test");
+    await interaction.reply("test");
     const reply = interaction.replies[0];
     assert.equal(reply.content, "test");
   });
 
-  test("should be able to reply with options object", () => {
+  test("should be able to reply with options object", async () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
-    interaction.reply({
+    await interaction.reply({
       content: "test",
       ephemeral: true,
       embeds: [new EmbedBuilder().setTitle("hi").setDescription("hi")],
@@ -185,20 +189,24 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.equal(reply.embeds?.length, 1);
   });
 
-  test("should not be able to reply after deferred", () => {
+  test("should not be able to reply after deferred", async () => {
+    let errMessage = "";
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
-    interaction.deferReply();
-    assert.throws(() => interaction.reply("test"));
+    await interaction.deferReply();
+    await interaction.reply("hi").catch((err) => (errMessage = err.message));
+    assert.equal(errMessage, "Interaction already deferred or replied.");
   });
 
-  test("should not be able to reply twice", () => {
+  test("should not be able to reply twice", async () => {
+    let errMessage = "";
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
-    interaction.reply("test");
-    assert.throws(() => interaction.reply("test"));
+    await interaction.reply("test");
+    await interaction.reply("hi").catch((err) => (errMessage = err.message));
+    assert.equal(errMessage, "Interaction already deferred or replied.");
   });
 
   test("should be able to edit reply", () => {
@@ -210,10 +218,14 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.equal(interaction.replies[0].content, "test2");
   });
 
-  test("should not be able to edit reply before replying", () => {
+  test("should not be able to edit reply before replying", async () => {
+    let errMessage = "";
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
-    assert.throws(() => interaction.editReply("test"));
+    await interaction
+      .editReply("test")
+      .catch((err) => (errMessage = err.message));
+    assert.equal(errMessage, "Interaction has not been deferred or replied.");
   });
 });

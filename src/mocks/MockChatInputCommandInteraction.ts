@@ -145,13 +145,13 @@ export class MockChatInputCommandInteraction {
    * @async
    * @public
    */
-  public deferReply(options?: { ephemeral?: boolean }): Promise<boolean> {
+  public async deferReply(options?: { ephemeral?: boolean }): Promise<boolean> {
     if (this._deferred) {
       throw new Error("Interaction already deferred.");
     }
     this._deferred = true;
     this._ephemeral = options?.ephemeral || false;
-    return new Promise(() => true);
+    return true;
   }
 
   /**
@@ -163,7 +163,7 @@ export class MockChatInputCommandInteraction {
    * @async
    * @public
    */
-  public reply(
+  public async reply(
     payload: string | InteractionReplyParameters
   ): Promise<MockInteractionMessage> {
     if (this._deferred || this._replies.length) {
@@ -177,7 +177,7 @@ export class MockChatInputCommandInteraction {
         ephemeral: this._ephemeral,
       });
       this._replies.push(message);
-      return new Promise(() => message);
+      return message;
     }
     const { content, embeds, attachments, ephemeral } = payload;
     const message = new MockInteractionMessage({
@@ -189,7 +189,7 @@ export class MockChatInputCommandInteraction {
       channel: this._channel,
     });
     this._replies.push(message);
-    return new Promise(() => message);
+    return message;
   }
 
   /**
@@ -202,7 +202,7 @@ export class MockChatInputCommandInteraction {
    * @async
    * @public
    */
-  public editReply(
+  public async editReply(
     payload: string | ReplyParameters
   ): Promise<MockInteractionMessage> {
     if (!this._deferred && this._replies.length !== 1) {

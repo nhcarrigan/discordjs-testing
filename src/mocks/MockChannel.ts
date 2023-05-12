@@ -87,11 +87,11 @@ export class MockChannel {
    * @public
    * @async
    */
-  public send(
+  public async send(
     message: ReplyParameters | string,
     author: MockUser
   ): Promise<MockMessage> {
-    const msg = this._messages.send(message, author);
-    return new Promise(() => msg);
+    const msg = await this._messages.send(message, author);
+    return msg;
   }
 }

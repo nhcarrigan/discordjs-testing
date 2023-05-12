@@ -134,7 +134,7 @@ export class MockMessage {
    * @public
    * @async
    */
-  public edit(options: string | ReplyParameters): Promise<MockMessage> {
+  public async edit(options: string | ReplyParameters): Promise<MockMessage> {
     if (typeof options === "string") {
       this._content = options;
     } else {
@@ -142,6 +142,6 @@ export class MockMessage {
       this._embeds = options.embeds || this._embeds;
       this._attachments = options.attachments || this._attachments;
     }
-    return new Promise(() => this);
+    return this;
   }
 }

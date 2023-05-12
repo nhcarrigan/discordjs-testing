@@ -38,7 +38,7 @@ export class MockUserManager {
    * @public
    * @async
    */
-  public fetch(): Promise<Collection<string, MockUser>>;
+  public async fetch(): Promise<Collection<string, MockUser>>;
   /**
    * Fetches a single user from the guild.
    *
@@ -47,7 +47,7 @@ export class MockUserManager {
    * @public
    * @async
    */
-  public fetch(id: string): Promise<MockUser | null>;
+  public async fetch(id: string): Promise<MockUser | null>;
   /**
    * Fetches the users from the guild. Optionally fetches a single user, if an id is provided.
    *
@@ -56,13 +56,13 @@ export class MockUserManager {
    * @public
    * @async
    */
-  public fetch(
+  public async fetch(
     id?: string
   ): Promise<Collection<string, MockUser> | MockUser | null> {
     if (id) {
-      return new Promise(() => this._cache.get(id) || null);
+      return this._cache.get(id) || null;
     }
-    return new Promise(() => this._cache);
+    return this._cache;
   }
 
   /**
@@ -73,10 +73,10 @@ export class MockUserManager {
    * @package
    * @async
    */
-  public add(options: UserParameters): Promise<MockUser> {
+  public async add(options: UserParameters): Promise<MockUser> {
     const user = new MockUser(options);
     this._cache.set(user.id, user);
-    return new Promise(() => user);
+    return user;
   }
 
   /**

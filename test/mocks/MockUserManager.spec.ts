@@ -29,33 +29,29 @@ suite("Mock User Manager", () => {
    * Methods.
    */
 
-  test("should be able to fetch a user", () => {
+  test("should be able to fetch a user", async () => {
     const manager = new MockUserManager(guild);
-    manager
-      .add({
-        username: "test",
-        avatar: "https://cdn.nhcarrigan.com/profile.png",
-        bot: false,
-        discriminator: 1,
-        system: false,
-      })
-      .then((user) => {
-        manager.fetch(user.id).then((result) => assert.deepEqual(result, user));
-      });
+    const user = await manager.add({
+      username: "test",
+      avatar: "https://cdn.nhcarrigan.com/profile.png",
+      bot: false,
+      discriminator: 1,
+      system: false,
+    });
+    const result = await manager.fetch(user.id);
+    assert.deepEqual(result, user);
   });
 
-  test("should be able to fetch all user", () => {
+  test("should be able to fetch all user", async () => {
     const manager = new MockUserManager(guild);
-    manager
-      .add({
-        username: "test",
-        avatar: "https://cdn.nhcarrigan.com/profile.png",
-        bot: false,
-        discriminator: 1,
-        system: false,
-      })
-      .then(() => {
-        manager.fetch().then((result) => assert.equal(result.size, 1));
-      });
+    await manager.add({
+      username: "test",
+      avatar: "https://cdn.nhcarrigan.com/profile.png",
+      bot: false,
+      discriminator: 1,
+      system: false,
+    });
+    const result = await manager.fetch();
+    assert.equal(result.size, 1);
   });
 });

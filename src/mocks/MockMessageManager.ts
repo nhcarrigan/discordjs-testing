@@ -48,7 +48,7 @@ export class MockMessageManager {
    * @public
    * @async
    */
-  public fetch(): Promise<Collection<string, MockMessage>>;
+  public async fetch(): Promise<Collection<string, MockMessage>>;
   /**
    * Fetches a single message from the guild.
    *
@@ -57,7 +57,7 @@ export class MockMessageManager {
    * @public
    * @async
    */
-  public fetch(id: string): Promise<MockMessage | null>;
+  public async fetch(id: string): Promise<MockMessage | null>;
   /**
    * Fetches the messages from the guild. Optionally fetches a single message, if an id is provided.
    *
@@ -66,13 +66,13 @@ export class MockMessageManager {
    * @public
    * @async
    */
-  public fetch(
+  public async fetch(
     id?: string
   ): Promise<Collection<string, MockMessage> | MockMessage | null> {
     if (id) {
-      return new Promise(() => this._cache.get(id) || null);
+      return this._cache.get(id) || null;
     }
-    return new Promise(() => this._cache);
+    return this._cache;
   }
 
   /**
@@ -84,7 +84,7 @@ export class MockMessageManager {
    * @package
    * @async
    */
-  public send(
+  public async send(
     message: ReplyParameters | string,
     author: MockUser
   ): Promise<MockMessage> {
@@ -96,6 +96,6 @@ export class MockMessageManager {
       author,
     });
     this._cache.set(mockMessage.id, mockMessage);
-    return new Promise(() => mockMessage);
+    return mockMessage;
   }
 }

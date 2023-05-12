@@ -86,8 +86,8 @@ export class MockGuild {
    * @public
    * @async
    */
-  public fetch(): Promise<MockGuild> {
-    return new Promise(() => this);
+  public async fetch(): Promise<MockGuild> {
+    return this;
   }
 
   /**
@@ -98,9 +98,9 @@ export class MockGuild {
    * @package
    * @async
    */
-  public ban(options: BanParameters): Promise<MockBan> {
+  public async ban(options: BanParameters): Promise<MockBan> {
     const ban = new MockBan(options);
     this._bans.create(options.member, ban);
-    return new Promise(() => ban);
+    return ban;
   }
 }

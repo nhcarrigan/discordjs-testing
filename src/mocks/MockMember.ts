@@ -126,16 +126,18 @@ export class MockMember {
    * Bans the member.
    *
    * @param {string} reason The reason for the ban.
+   * @returns {Promise<MockMember>} The member.
    * @public
    * @async
    */
-  public ban(reason: string): Promise<MockMember> {
+  public async ban(reason: string): Promise<MockMember> {
     this._guild.ban({
       reason,
       member: this,
       guild: this._guild,
     });
-    return new Promise(() => this);
+    this._guild.members.remove(this._id);
+    return this;
   }
 
   /**
@@ -145,20 +147,21 @@ export class MockMember {
    * @public
    * @async
    */
-  public kick(): Promise<MockMember> {
+  public async kick(): Promise<MockMember> {
     this._guild.members.remove(this._id);
-    return new Promise(() => this);
+    return this;
   }
 
   /**
    * Sets a timeout on the member.
    *
    * @param {number} timeout The timeout in milliseconds.
+   * @returns {Promise<MockMember>} The member.
    * @public
    * @async
    */
-  public timeout(timeout: number): Promise<MockMember> {
+  public async timeout(timeout: number): Promise<MockMember> {
     this._timeoutDuration = timeout;
-    return new Promise(() => this);
+    return this;
   }
 }
