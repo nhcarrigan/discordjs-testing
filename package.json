@@ -1,6 +1,6 @@
 {
   "name": "discordjs-testing",
-  "version": "0.0.0",
+  "version": "0.0.0-alpha",
   "description": "Helper package for testing DiscordJS bots with Mocha/Chai",
   "main": "prod/index.ts",
   "scripts": {
