@@ -82,6 +82,16 @@ suite("CommandDataHelper", () => {
     assert.deepEqual(moreSubcommands[0], subcommand.toJSON());
   });
 
+  test("should get option from a command", () => {
+    const helper = new CommandDataHelper(command.toJSON());
+    const option = helper.getCommandOption(0);
+    assert.exists(option);
+    assert.equal(option?.name, "group");
+    assert.equal(option?.description, "group");
+    const nullOption = helper.getCommandOption(3);
+    assert.isNull(nullOption);
+  });
+
   test("should get option from a subcommand", () => {
     const helper = new CommandDataHelper(command.toJSON());
     const option = helper.getSubcommandOption("sub2", 0);
