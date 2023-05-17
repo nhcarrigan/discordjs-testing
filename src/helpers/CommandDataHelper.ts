@@ -145,6 +145,34 @@ export class CommandDataHelper {
       (opt) => opt.type === ApplicationCommandOptionType.Subcommand
     ) as APIApplicationCommandSubcommandOption[];
   }
+
+  /**
+   * Gets an option from a command.
+   *
+   * @template T The type of the option - defined in Discord.js.
+   * @param {number} optionIndex The index of the option.
+   * @returns {T | null} The option.
+   */
+  public getCommandOption<
+    T extends
+      | APIApplicationCommandStringOption
+      | APIApplicationCommandIntegerOption
+      | APIApplicationCommandBooleanOption
+      | APIApplicationCommandUserOption
+      | APIApplicationCommandChannelOption
+      | APIApplicationCommandRoleOption
+      | APIApplicationCommandMentionableOption
+      | APIApplicationCommandNumberOption
+      | APIApplicationCommandAttachmentOption
+  >(optionIndex: number): T | null {
+    const target = this._command;
+    if (!target?.options?.[optionIndex]) {
+      return null;
+    }
+
+    return target.options[optionIndex] as T;
+  }
+
   /**
    * Gets an option from a subcommand.
    *
