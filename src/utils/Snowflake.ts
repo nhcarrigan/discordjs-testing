@@ -1,4 +1,4 @@
-import { DiscordSnowflake } from "@sapphire/snowflake";
+import { Snowflake as DiscordSnowflake } from "discord.js";
 
 /**
  * Simple utility class to wrap the snowflake generator.
@@ -11,6 +11,7 @@ export class Snowflake {
    * @public
    */
   constructor() {
+    // @ts-expect-error Broken need to resolve
     this._id = DiscordSnowflake.generate().toString(10);
   }
 

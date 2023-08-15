@@ -1,6 +1,9 @@
 {
   "extends": "@nhcarrigan/typescript-config",
   "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./prod",
     "declaration": true
   },
+  "exclude": ["./test"]
 }
