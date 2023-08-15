@@ -100,7 +100,7 @@ export class MockGuild {
    */
   public async ban(options: BanParameters): Promise<MockBan> {
     const ban = new MockBan(options);
-    this._bans.create(options.member, ban);
+    await this._bans.create(options.member, ban);
     return ban;
   }
 }
