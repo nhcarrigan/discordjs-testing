@@ -4,5 +4,6 @@
     "rootDir": "./src",
     "outDir": "./prod",
     "declaration": true
-  }
+  },
+  "exclude": ["./test"]
 }
