@@ -34,7 +34,7 @@ suite("index file", () => {
         `Missing import for ${mock} module.`
       );
       assert.lengthOf(
-        fileContent.match(new RegExp(fileName, "g")) || [],
+        fileContent.match(new RegExp(`\\b${fileName}\\b`, "g")) || [],
         3,
         `Missing export for ${mock} module.`
       );
