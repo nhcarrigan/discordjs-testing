@@ -15,8 +15,8 @@ dependencies:
     specifier: 16.0.3
     version: 16.0.3
   winston:
-    specifier: 3.8.2
-    version: 3.8.2
+    specifier: 3.10.0
+    version: 3.10.0
 
 devDependencies:
   '@nhcarrigan/eslint-config':
@@ -2532,8 +2532,8 @@ packages:
       triple-beam: 1.4.1
     dev: false
 
-  /winston@3.8.2:
-    resolution: {integrity: sha512-MsE1gRx1m5jdTTO9Ld/vND4krP2To+lgDoMEHGGa4HIlAUyXJtfc7CxQcGXVyz2IBpw5hbFkj2b/AtUdQwyRew==}
+  /winston@3.10.0:
+    resolution: {integrity: sha512-nT6SIDaE9B7ZRO0u3UvdrimG0HkB7dSTAgInQnNR2SOPJ4bvq5q79+pXLftKmP52lJGW15+H5MCK0nM9D3KB/g==}
     engines: {node: '>= 12.0.0'}
     dependencies:
       '@colors/colors': 1.5.0
