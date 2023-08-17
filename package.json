@@ -51,7 +51,7 @@
     "prettier": "2.8.8",
     "rimraf": "5.0.1",
     "ts-mocha": "10.0.0",
-    "typescript": "5.0.4"
+    "typescript": "5.1.6"
   },
   "peerDependencies": {
     "discord.js": "14.12.1"
