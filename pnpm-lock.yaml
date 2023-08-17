@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@sapphire/snowflake':
+    specifier: 3.5.1
+    version: 3.5.1
   discord.js:
     specifier: 14.10.2
     version: 14.10.2
