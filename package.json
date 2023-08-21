@@ -12,6 +12,10 @@
     "prepack": "npm run build",
     "prepublishOnly": "npm run build"
   },
+  "engines": {
+    "node": "18",
+    "pnpm": "8"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/nhcarrigan/discordjs-testing.git"
