@@ -1,6 +1,6 @@
 {
   "name": "discordjs-testing",
-  "version": "0.0.0-epsilon",
+  "version": "0.0.0-zeta",
   "description": "Helper package for testing DiscordJS bots with Mocha/Chai",
   "main": "prod/index.js",
   "scripts": {
