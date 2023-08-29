@@ -1,4 +1,7 @@
-import { ChatInputCommandInteraction } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  ChatInputCommandInteraction,
+} from "discord.js";
 
 import { ChatInputCommandInteractionParameters } from "../interfaces/ChatInputCommandInteractionParameters";
 import {
@@ -51,6 +54,13 @@ export class MockChatInputCommandInteraction {
     this._bot = options.bot;
     for (const option of options.options || []) {
       this._options.addOption(option);
+    }
+    if (this._subcommandName) {
+      this._options.addOption({
+        name: "subcommand",
+        value: this._subcommandName,
+        type: ApplicationCommandOptionType.Subcommand,
+      });
     }
   }
 

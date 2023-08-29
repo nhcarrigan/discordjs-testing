@@ -263,4 +263,17 @@ export class MockCommandOptions {
     }
     return result?.value;
   }
+
+  /**
+   * Mock for the getSubcommand method.
+   * Gets a subcommand.
+   *
+   * @returns {string | undefined} The subcommand name if found, undefined otherwise.
+   */
+  public getSubcommand(): string | undefined {
+    const result = this._data.find(
+      (opt) => opt.type === ApplicationCommandOptionType.Subcommand
+    );
+    return result?.value as string;
+  }
 }

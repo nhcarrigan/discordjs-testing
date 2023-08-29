@@ -19,7 +19,8 @@ export type OptionParameters =
   | NumberOptionParameters
   | RoleOptionParameters
   | AttachmentOptionParameters
-  | MessageOptionParameters;
+  | MessageOptionParameters
+  | SubcommandOptionParameters;
 export interface StringOptionParameters {
   name: string;
   value: string;
@@ -88,4 +89,10 @@ export interface MessageOptionParameters {
   value: MockMessage;
   type: ApplicationCommandType.Message;
   required?: boolean;
+}
+
+export interface SubcommandOptionParameters {
+  name: string;
+  value: string;
+  type: ApplicationCommandOptionType.Subcommand;
 }
