@@ -8,8 +8,9 @@
     "build": "tsc",
     "lint": "eslint src test --max-warnings 0",
     "start": "node -r dotenv/config prod/index.js",
-    "test": "ts-mocha -u tdd test/index.spec.ts test/**/*.spec.ts --recursive --timeout 10000",
-    "prepack": "npm run build",
+    "test": "nyc --check-coverage ts-mocha -u tdd test/index.spec.ts 'test/**/*.spec.ts' --recursive --timeout 10000",
+    "test:nocov": "ts-mocha -u tdd test/index.spec.ts 'test/**/*.spec.ts' --recursive --timeout 10000",
+    "prepack": "npm run build && npm run lint && npm run test",
     "prepublishOnly": "npm run build"
   },
   "engines": {
@@ -52,6 +53,7 @@
     "chai": "4.3.8",
     "eslint": "8.48.0",
     "mocha": "10.2.0",
+    "nyc": "15.1.0",
     "prettier": "2.8.8",
     "rimraf": "5.0.1",
     "ts-mocha": "10.0.0",

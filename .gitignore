@@ -2,3 +2,5 @@
 /prod/
 .env
 *.tgz
+/coverage/
+.nyc_output
