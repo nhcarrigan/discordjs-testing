@@ -8,8 +8,10 @@
     "build": "tsc",
     "lint": "eslint src test --max-warnings 0",
     "start": "node -r dotenv/config prod/index.js",
+    "pretest": "rimraf ./.nyc_output && ts-node test/validateCoverage.ts",
     "test": "nyc --check-coverage ts-mocha -u tdd test/index.spec.ts 'test/**/*.spec.ts' --recursive --timeout 10000",
     "test:nocov": "ts-mocha -u tdd test/index.spec.ts 'test/**/*.spec.ts' --recursive --timeout 10000",
+    "posttest": "ts-node test/validateCoverage.ts --post-coverage",
     "prepack": "npm run build && npm run lint && npm run test",
     "prepublishOnly": "npm run build"
   },
