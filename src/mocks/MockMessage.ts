@@ -11,6 +11,7 @@ import { Snowflake } from "../utils/Snowflake";
 
 import { MockChannel } from "./MockChannel";
 import { MockGuild } from "./MockGuild";
+import { MockMember } from "./MockMember";
 import { MockUser } from "./MockUser";
 
 /**
@@ -25,6 +26,7 @@ export class MockMessage {
   private _channel: MockChannel;
   private _guildId: string | undefined;
   private _guild: MockGuild | undefined;
+  private _member: MockMember | undefined;
   private _content: string | undefined;
   private _embeds: (EmbedBuilder | APIEmbed)[] | undefined;
   private _attachments: (AttachmentBuilder | APIAttachment)[] | undefined;
@@ -38,6 +40,7 @@ export class MockMessage {
   constructor(options: MessageParameters) {
     this._id = new Snowflake().id;
     this._author = options.author;
+    this._member = options.member;
     this._channelId = options.channel.id;
     this._channel = options.channel;
     this._guildId = options.guild?.id;
@@ -139,6 +142,15 @@ export class MockMessage {
   }
 
   /**
+   * @type {MockMember | undefined}
+   * @public
+   * @readonly
+   */
+  public get member(): MockMember | undefined {
+    return this._member;
+  }
+
+  /**
    * Edit a message.
    *
    * @param {string | ReplyParameters} options The message content or options.
@@ -182,7 +194,7 @@ export class MockMessage {
       system: false,
       avatar: "avatar",
     });
-    const message = this._channel.send(options, replyUser);
+    const message = this._channel.send(options, replyUser, this._member);
     return message;
   }
 }

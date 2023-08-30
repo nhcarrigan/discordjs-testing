@@ -3,6 +3,7 @@ import { Collection } from "discord.js";
 import { ReplyParameters } from "../interfaces/ReplyParameters";
 
 import { MockChannel } from "./MockChannel";
+import { MockMember } from "./MockMember";
 import { MockMessage } from "./MockMessage";
 import { MockUser } from "./MockUser";
 
@@ -80,13 +81,15 @@ export class MockMessageManager {
    *
    * @param {ReplyParameters | string} message The message to send.
    * @param {MockUser} author The author of the message.
+   * @param {MockMember} member The member of the message.
    * @returns {Promise<MockMessage>} The message that was sent.
    * @package
    * @async
    */
   public async send(
     message: ReplyParameters | string,
-    author: MockUser
+    author: MockUser,
+    member?: MockMember
   ): Promise<MockMessage> {
     const opts = typeof message === "string" ? { content: message } : message;
     const mockMessage = new MockMessage({
@@ -94,6 +97,7 @@ export class MockMessageManager {
       channel: this._channel,
       guild: this._channel.guild,
       author,
+      member,
     });
     this._cache.set(mockMessage.id, mockMessage);
     return mockMessage;

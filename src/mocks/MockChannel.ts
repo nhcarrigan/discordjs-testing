@@ -5,6 +5,7 @@ import { ReplyParameters } from "../interfaces/ReplyParameters";
 import { Snowflake } from "../utils/Snowflake";
 
 import { MockGuild } from "./MockGuild";
+import { MockMember } from "./MockMember";
 import { MockMessage } from "./MockMessage";
 import { MockMessageManager } from "./MockMessageManager";
 import { MockUser } from "./MockUser";
@@ -85,15 +86,17 @@ export class MockChannel {
    *
    * @param {ReplyParameters | string} message The message to send.
    * @param {MockUser} author The author of the message.
+   * @param {MockMember} member The member object.
    * @returns {Promise<MockMessage>} The message.
    * @public
    * @async
    */
   public async send(
     message: ReplyParameters | string,
-    author: MockUser
+    author: MockUser,
+    member?: MockMember
   ): Promise<MockMessage> {
-    const msg = await this._messages.send(message, author);
+    const msg = await this._messages.send(message, author, member);
     return msg;
   }
 
