@@ -23,7 +23,11 @@ const subcommandTwo = new SlashCommandSubcommandBuilder()
   .addStringOption((option) =>
     option.setName("option").setDescription("option")
   );
+const commandWithoutGroup = new SlashCommandBuilder()
+  .setName("hello")
+  .setDescription("hello");
 
+commandWithoutGroup.addSubcommand(subcommand);
 group.addSubcommand(subcommand);
 groupTwoSubs.addSubcommand(subcommand);
 groupTwoSubs.addSubcommand(subcommandTwo);
@@ -50,6 +54,12 @@ suite("CommandDataHelper", () => {
     assert.equal(helper.subcommands[0].name, "sub");
     assert.deepEqual(helper.subcommands[1], subcommandTwo.toJSON());
     assert.equal(helper.subcommands[1].name, "sub2");
+  });
+
+  test("should get subcommands without groups", () => {
+    const helper = new CommandDataHelper(commandWithoutGroup.toJSON());
+    assert.lengthOf(helper.subcommands, 1);
+    assert.deepEqual(helper.subcommands[0], subcommand.toJSON());
   });
 
   test("should get the data", () => {
@@ -80,6 +90,13 @@ suite("CommandDataHelper", () => {
     const moreSubcommands = helper.getSubcommandsForGroup("group");
     assert.lengthOf(moreSubcommands, 1);
     assert.deepEqual(moreSubcommands[0], subcommand.toJSON());
+  });
+
+  test("should handle invalid group", () => {
+    const helper = new CommandDataHelper(command.toJSON());
+    const parsedSubcommands = helper.getSubcommandsForGroup("group3");
+    assert.isArray(parsedSubcommands);
+    assert.lengthOf(parsedSubcommands, 0);
   });
 
   test("should get option from a command", () => {
