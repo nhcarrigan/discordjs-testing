@@ -42,7 +42,7 @@ export class MockMessage {
     this._guild = options.guild;
     this._content = options.content;
     this._embeds = options.embeds;
-    this._attachments = options.attachments;
+    this._attachments = options.attachments || options.files;
   }
 
   /**
@@ -140,7 +140,8 @@ export class MockMessage {
     } else {
       this._content = options.content || this._content;
       this._embeds = options.embeds || this._embeds;
-      this._attachments = options.attachments || this._attachments;
+      this._attachments =
+        options.attachments || options.files || this._attachments;
     }
     return this;
   }
