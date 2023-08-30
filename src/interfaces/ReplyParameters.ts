@@ -15,3 +15,8 @@ export interface ReplyParameters {
 export interface InteractionReplyParameters extends ReplyParameters {
   ephemeral?: boolean;
 }
+
+export interface WebhookReplyParameters extends ReplyParameters {
+  username?: string;
+  avatarURL?: string;
+}

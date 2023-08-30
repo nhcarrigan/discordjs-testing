@@ -1,6 +1,7 @@
 import {
   ApplicationCommandOptionType,
   ChatInputCommandInteraction,
+  InteractionType,
   ModalBuilder,
 } from "discord.js";
 
@@ -13,6 +14,7 @@ import {
 import { MockChannel } from "./MockChannel";
 import { MockCommandOptions } from "./MockCommandOptions";
 import { MockGuild } from "./MockGuild";
+import { MockInteraction } from "./MockInteraction";
 import { MockInteractionMessage } from "./MockInteractionMessage";
 import { MockMember } from "./MockMember";
 import { MockUser } from "./MockUser";
@@ -22,12 +24,12 @@ import { MockUser } from "./MockUser";
  *
  * @class
  */
-export class MockChatInputCommandInteraction {
+export class MockChatInputCommandInteraction extends MockInteraction {
   private _commandName: string;
   private _subcommandGroupName: string | null;
   private _subcommandName: string | null;
   private _options: MockCommandOptions;
-  private _guild: MockGuild;
+  private _guild: MockGuild | null;
   private _member: MockMember;
   private _user: MockUser;
   private _deferred: boolean;
@@ -42,11 +44,12 @@ export class MockChatInputCommandInteraction {
    * @public
    */
   constructor(options: ChatInputCommandInteractionParameters) {
+    super(InteractionType.ApplicationCommand);
     this._commandName = options.commandName;
     this._subcommandGroupName = options.subcommandGroupName || null;
     this._subcommandName = options.subcommandName || null;
     this._options = new MockCommandOptions();
-    this._guild = options.guild;
+    this._guild = options.guild || null;
     this._member = options.member;
     this._user = options.user;
     this._ephemeral = false;
@@ -91,11 +94,11 @@ export class MockChatInputCommandInteraction {
     return this._subcommandName;
   }
   /**
-   * @type {MockGuild}
+   * @type {MockGuild | null}
    * @public
    * @readonly
    */
-  public get guild(): MockGuild {
+  public get guild(): MockGuild | null {
     return this._guild;
   }
   /**

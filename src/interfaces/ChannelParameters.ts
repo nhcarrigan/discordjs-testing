@@ -5,5 +5,5 @@ import { MockGuild } from "../mocks/MockGuild";
 export interface ChannelParameters {
   name: string;
   type: ChannelType;
-  guild: MockGuild;
+  guild?: MockGuild;
 }
