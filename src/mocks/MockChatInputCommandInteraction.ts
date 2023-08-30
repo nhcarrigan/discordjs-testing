@@ -1,6 +1,7 @@
 import {
   ApplicationCommandOptionType,
   ChatInputCommandInteraction,
+  ModalBuilder,
 } from "discord.js";
 
 import { ChatInputCommandInteractionParameters } from "../interfaces/ChatInputCommandInteractionParameters";
@@ -34,6 +35,7 @@ export class MockChatInputCommandInteraction {
   private _replies: MockInteractionMessage[];
   private _channel: MockChannel;
   private _bot: MockUser;
+  private _modal: ModalBuilder | null = null;
 
   /**
    * @param {ChatInputCommandInteractionParameters} options The options for the interaction.
@@ -144,6 +146,14 @@ export class MockChatInputCommandInteraction {
   public get options(): MockCommandOptions {
     return this._options;
   }
+  /**
+   * @type {ModalBuilder}
+   * @public
+   * @readonly
+   */
+  public get modal(): ModalBuilder | null {
+    return this._modal;
+  }
 
   /**
    * Mock for the deferReply method.
@@ -223,6 +233,24 @@ export class MockChatInputCommandInteraction {
     this._replies.pop();
     const message = this.reply(payload, true);
     return message;
+  }
+
+  /**
+   * Mock for the showModal method.
+   * In Discord.js this would display a modal to the user.
+   * Here it just adds the modal to the interaction for testing.
+   *
+   * @param {ModalBuilder} modal The modal to display.
+   * @returns {Promise<ModalBuilder>} The modal displayed.
+   * @async
+   * @public
+   */
+  public async showModal(modal: ModalBuilder): Promise<ModalBuilder> {
+    if (this._deferred || this._replies.length || this._modal) {
+      throw new Error("Interaction already deferred or replied.");
+    }
+    this._modal = modal;
+    return modal;
   }
 
   /**
