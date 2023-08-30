@@ -12,6 +12,7 @@ import { MockMember } from "./mocks/MockMember";
 import { MockMemberManager } from "./mocks/MockMemberManager";
 import { MockMessage } from "./mocks/MockMessage";
 import { MockMessageManager } from "./mocks/MockMessageManager";
+import { MockRest } from "./mocks/MockRest";
 import { MockRole } from "./mocks/MockRole";
 import { MockRoleManager } from "./mocks/MockRoleManager";
 import { MockUser } from "./mocks/MockUser";
@@ -33,6 +34,7 @@ export {
   MockMemberManager,
   MockMessage,
   MockMessageManager,
+  MockRest,
   MockRole,
   MockRoleManager,
   MockUser,
