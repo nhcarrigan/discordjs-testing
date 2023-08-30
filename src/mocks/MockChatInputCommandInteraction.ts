@@ -1,6 +1,7 @@
 import {
   ApplicationCommandOptionType,
   ChatInputCommandInteraction,
+  InteractionType,
   ModalBuilder,
 } from "discord.js";
 
@@ -13,6 +14,7 @@ import {
 import { MockChannel } from "./MockChannel";
 import { MockCommandOptions } from "./MockCommandOptions";
 import { MockGuild } from "./MockGuild";
+import { MockInteraction } from "./MockInteraction";
 import { MockInteractionMessage } from "./MockInteractionMessage";
 import { MockMember } from "./MockMember";
 import { MockUser } from "./MockUser";
@@ -22,7 +24,7 @@ import { MockUser } from "./MockUser";
  *
  * @class
  */
-export class MockChatInputCommandInteraction {
+export class MockChatInputCommandInteraction extends MockInteraction {
   private _commandName: string;
   private _subcommandGroupName: string | null;
   private _subcommandName: string | null;
@@ -42,6 +44,7 @@ export class MockChatInputCommandInteraction {
    * @public
    */
   constructor(options: ChatInputCommandInteractionParameters) {
+    super(InteractionType.ApplicationCommand);
     this._commandName = options.commandName;
     this._subcommandGroupName = options.subcommandGroupName || null;
     this._subcommandName = options.subcommandName || null;
