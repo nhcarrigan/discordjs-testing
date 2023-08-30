@@ -22,7 +22,7 @@ export class MockInteraction {
    *
    * @returns {boolean} This is a slash command.
    */
-  public isChatInputCommand() {
+  public isChatInputCommand(): boolean {
     return this._type === InteractionType.ApplicationCommand;
   }
 
@@ -31,7 +31,7 @@ export class MockInteraction {
    *
    * @returns {boolean} This is a chat input command.
    */
-  public isButton() {
+  public isButton(): boolean {
     return this._type === InteractionType.MessageComponent;
   }
 
@@ -40,7 +40,7 @@ export class MockInteraction {
    *
    * @returns {boolean} This is a modal submit.
    */
-  public isModalSubmit() {
+  public isModalSubmit(): boolean {
     return this._type === InteractionType.ModalSubmit;
   }
 
@@ -49,7 +49,16 @@ export class MockInteraction {
    *
    * @returns {boolean} This is a context menu command.
    */
-  public isContextMenu() {
+  public isContextMenu(): boolean {
     return this._type === InteractionType.ApplicationCommand;
+  }
+
+  /**
+   * Checks if this is an autocomplete update.
+   *
+   * @returns {boolean} This is an autocomplete update.
+   */
+  public isAutocomplete(): boolean {
+    return this._type === InteractionType.ApplicationCommandAutocomplete;
   }
 }
