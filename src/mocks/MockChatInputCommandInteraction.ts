@@ -201,11 +201,12 @@ export class MockChatInputCommandInteraction {
       this._replies.push(message);
       return message;
     }
-    const { content, embeds, attachments, ephemeral } = payload;
+    const { content, embeds, attachments, ephemeral, files } = payload;
     const message = new MockInteractionMessage({
       content,
       embeds,
       attachments,
+      files,
       ephemeral,
       author: this._bot,
       channel: this._channel,
