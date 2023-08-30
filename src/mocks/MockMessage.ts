@@ -28,6 +28,8 @@ export class MockMessage {
   private _content: string | undefined;
   private _embeds: (EmbedBuilder | APIEmbed)[] | undefined;
   private _attachments: (AttachmentBuilder | APIAttachment)[] | undefined;
+  private _deleted = false;
+  private _replyId: string;
 
   /**
    * @param {MessageParameters} options The message options.
@@ -43,6 +45,7 @@ export class MockMessage {
     this._content = options.content;
     this._embeds = options.embeds;
     this._attachments = options.attachments || options.files;
+    this._replyId = options.replyId || "";
   }
 
   /**
@@ -127,6 +130,15 @@ export class MockMessage {
   }
 
   /**
+   * @type {boolean}
+   * @public
+   * @readonly
+   */
+  public get deleted(): boolean {
+    return this._deleted;
+  }
+
+  /**
    * Edit a message.
    *
    * @param {string | ReplyParameters} options The message content or options.
@@ -144,5 +156,33 @@ export class MockMessage {
         options.attachments || options.files || this._attachments;
     }
     return this;
+  }
+
+  /**
+   * Delete a message.
+   * Sets the deleted property to true.
+   *
+   * @returns {Promise<void>} An empty promise.
+   */
+  public async delete(): Promise<void> {
+    this._deleted = true;
+  }
+
+  /**
+   * Sends a message in reply to this message.
+   *
+   * @param {string | ReplyParameters} options The message options.
+   * @returns {Promise<MockMessage>} The message sent.
+   */
+  public async reply(options: string | ReplyParameters): Promise<MockMessage> {
+    const replyUser = new MockUser({
+      username: "Reply",
+      discriminator: 1,
+      bot: false,
+      system: false,
+      avatar: "avatar",
+    });
+    const message = this._channel.send(options, replyUser);
+    return message;
   }
 }
