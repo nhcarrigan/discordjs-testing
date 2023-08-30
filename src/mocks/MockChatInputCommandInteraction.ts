@@ -27,7 +27,7 @@ export class MockChatInputCommandInteraction {
   private _subcommandGroupName: string | null;
   private _subcommandName: string | null;
   private _options: MockCommandOptions;
-  private _guild: MockGuild;
+  private _guild: MockGuild | null;
   private _member: MockMember;
   private _user: MockUser;
   private _deferred: boolean;
@@ -46,7 +46,7 @@ export class MockChatInputCommandInteraction {
     this._subcommandGroupName = options.subcommandGroupName || null;
     this._subcommandName = options.subcommandName || null;
     this._options = new MockCommandOptions();
-    this._guild = options.guild;
+    this._guild = options.guild || null;
     this._member = options.member;
     this._user = options.user;
     this._ephemeral = false;
@@ -91,11 +91,11 @@ export class MockChatInputCommandInteraction {
     return this._subcommandName;
   }
   /**
-   * @type {MockGuild}
+   * @type {MockGuild | null}
    * @public
    * @readonly
    */
-  public get guild(): MockGuild {
+  public get guild(): MockGuild | null {
     return this._guild;
   }
   /**

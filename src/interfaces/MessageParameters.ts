@@ -8,4 +8,5 @@ export interface MessageParameters extends ReplyParameters {
   channel: MockChannel;
   guild?: MockGuild;
   author: MockUser;
+  replyId?: string;
 }

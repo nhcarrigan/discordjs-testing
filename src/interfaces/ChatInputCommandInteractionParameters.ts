@@ -10,7 +10,7 @@ export interface ChatInputCommandInteractionParameters {
   subcommandGroupName?: string;
   subcommandName?: string;
   options?: OptionParameters[];
-  guild: MockGuild;
+  guild?: MockGuild;
   member: MockMember;
   user: MockUser;
   channel: MockChannel;
