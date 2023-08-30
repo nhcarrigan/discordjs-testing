@@ -146,6 +146,14 @@ export class MockChatInputCommandInteraction {
   public get options(): MockCommandOptions {
     return this._options;
   }
+  /**
+   * @type {ModalBuilder}
+   * @public
+   * @readonly
+   */
+  public get modal(): ModalBuilder | null {
+    return this._modal;
+  }
 
   /**
    * Mock for the deferReply method.
@@ -228,7 +236,7 @@ export class MockChatInputCommandInteraction {
   }
 
   /**
-   * Mock for the showMoadl method.
+   * Mock for the showModal method.
    * In Discord.js this would display a modal to the user.
    * Here it just adds the modal to the interaction for testing.
    *
