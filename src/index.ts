@@ -7,6 +7,7 @@ import { MockChannelManager } from "./mocks/MockChannelManager";
 import { MockChatInputCommandInteraction } from "./mocks/MockChatInputCommandInteraction";
 import { MockCommandOptions } from "./mocks/MockCommandOptions";
 import { MockGuild } from "./mocks/MockGuild";
+import { MockInteraction } from "./mocks/MockInteraction";
 import { MockInteractionMessage } from "./mocks/MockInteractionMessage";
 import { MockMember } from "./mocks/MockMember";
 import { MockMemberManager } from "./mocks/MockMemberManager";
@@ -29,6 +30,7 @@ export {
   MockChatInputCommandInteraction,
   MockCommandOptions,
   MockGuild,
+  MockInteraction,
   MockInteractionMessage,
   MockMember,
   MockMemberManager,
