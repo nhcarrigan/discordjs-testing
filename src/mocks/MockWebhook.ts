@@ -1,6 +1,6 @@
 import { WebhookClient } from "discord.js";
 
-import { ReplyParameters } from "../interfaces/ReplyParameters";
+import { WebhookReplyParameters } from "../interfaces/ReplyParameters";
 import { WebhookParameters } from "../interfaces/WebhookParameters";
 
 import { MockChannel } from "./MockChannel";
@@ -16,6 +16,7 @@ import { MockUser } from "./MockUser";
 export class MockWebhook {
   private _user: MockUser;
   private _channel: MockChannel;
+  private _owner: MockUser;
 
   /**
    * @param {WebhookParameters} options The webhook's options.
@@ -24,6 +25,7 @@ export class MockWebhook {
   constructor(options: WebhookParameters) {
     this._user = options.user;
     this._channel = options.channel;
+    this._owner = options.user;
   }
 
   /**
@@ -39,12 +41,20 @@ export class MockWebhook {
    * Mocks the send method.
    * Send a message.
    *
-   * @param {ReplyParameters} options The message options.
+   * @param {WebhookReplyParameters} options The message options.
    * @returns {Promise<MockMessage>} The sent message.
    * @async
    * @public
    */
-  public async send(options: ReplyParameters): Promise<MockMessage> {
+  public async send(options: WebhookReplyParameters): Promise<MockMessage> {
+    if (options.username) {
+      // @ts-expect-error Internal assignment is okay.
+      this._user._username = options.username;
+    }
+    if (options.avatarURL) {
+      // @ts-expect-error Internal assignment is okay.
+      this._user._avatar = options.avatarURL;
+    }
     const message = this._channel.send(options, this._user);
     return message;
   }
