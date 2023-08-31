@@ -58,19 +58,17 @@ export class CommandDataHelper {
    */
   private parseSubcommands(): APIApplicationCommandSubcommandOption[] {
     if (this._subcommandGroups.length) {
-      return (
-        this._subcommandGroups
-          .flatMap(
-            (group) =>
-              group.options?.filter(
-                (opt) => opt.type === ApplicationCommandOptionType.Subcommand
-              ) as APIApplicationCommandSubcommandOption[]
-          )
-          .filter(
-            (command, index, self) =>
-              self.findIndex((c) => c.name === command.name) === index
-          ) || []
-      );
+      return this._subcommandGroups
+        .flatMap(
+          (group) =>
+            group.options?.filter(
+              (opt) => opt.type === ApplicationCommandOptionType.Subcommand
+            ) as APIApplicationCommandSubcommandOption[]
+        )
+        .filter(
+          (command, index, self) =>
+            command && self.findIndex((c) => c.name === command.name) === index
+        );
     }
     return (
       (this._command.options?.filter(
@@ -141,9 +139,11 @@ export class CommandDataHelper {
     if (!target) {
       return [];
     }
-    return target.options?.filter(
-      (opt) => opt.type === ApplicationCommandOptionType.Subcommand
-    ) as APIApplicationCommandSubcommandOption[];
+    return (
+      (target.options?.filter(
+        (opt) => opt.type === ApplicationCommandOptionType.Subcommand
+      ) as APIApplicationCommandSubcommandOption[]) || []
+    );
   }
 
   /**
