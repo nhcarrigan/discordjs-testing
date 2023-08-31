@@ -1,0 +1,6 @@
+{
+  "excludeNotDocumented": false,
+  "excludePrivate": false,
+  "includeVersion": true,
+  "excludeExternals": true
+}
