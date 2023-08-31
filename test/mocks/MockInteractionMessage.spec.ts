@@ -38,12 +38,27 @@ suite("Mock Interaction Message", () => {
    * Properties.
    */
 
+  test("should have ephemeral property", () => {
+    const message = new MockInteractionMessage({
+      content: "test",
+      channel: new MockChannel({
+        name: "test",
+        type: ChannelType.GuildText,
+        guild: guild,
+      }),
+      author: new MockUser({
+        username: "test",
+        avatar: "https://cdn.nhcarrigan.com/profile.png",
+        bot: true,
+        discriminator: 1,
+        system: false,
+      }),
+    });
+    assert.exists(message.ephemeral);
+    assert.isFalse(message.ephemeral);
+  });
+
   /**
    * Methods.
    */
-
-  test("should be able to create component collector", () => {
-    // this is gonna be yucky
-    assert.isTrue(true);
-  });
 });

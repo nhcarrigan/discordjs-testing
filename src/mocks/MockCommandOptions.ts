@@ -132,7 +132,7 @@ export class MockCommandOptions {
         opt.name === name && opt.type === ApplicationCommandOptionType.Boolean
     ) as BooleanOptionParameters | undefined;
     if (!result && required) {
-      throw new Error(`Could not find required user option ${name}`);
+      throw new Error(`Could not find required boolean option ${name}`);
     }
     return result?.value;
   }
@@ -216,7 +216,7 @@ export class MockCommandOptions {
         opt.name === name && opt.type === ApplicationCommandOptionType.Number
     ) as NumberOptionParameters | undefined;
     if (!result && required) {
-      throw new Error(`Could not find required user option ${name}`);
+      throw new Error(`Could not find required number option ${name}`);
     }
     return result?.value;
   }
@@ -240,7 +240,7 @@ export class MockCommandOptions {
         opt.type === ApplicationCommandOptionType.Attachment
     ) as AttachmentOptionParameters | undefined;
     if (!result && required) {
-      throw new Error(`Could not find required user option ${name}`);
+      throw new Error(`Could not find required attachment option ${name}`);
     }
     return result?.value;
   }
@@ -259,7 +259,7 @@ export class MockCommandOptions {
       (opt) => opt.name === name && opt.type === ApplicationCommandType.Message
     ) as MessageOptionParameters | undefined;
     if (!result && required) {
-      throw new Error(`Could not find required user option ${name}`);
+      throw new Error(`Could not find required message option ${name}`);
     }
     return result?.value;
   }

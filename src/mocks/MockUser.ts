@@ -28,7 +28,10 @@ export class MockUser {
     this._id = new Snowflake().id;
     this._username = options.username;
     this._discriminator = options.discriminator;
-    this._tag = `${options.username}#${options.discriminator}`;
+    this._tag = `${options.username}#${String(options.discriminator).padStart(
+      4,
+      "0"
+    )}`;
     this._avatar = options.avatar;
     this._bot = options.bot;
     this._system = options.system;
@@ -67,8 +70,8 @@ export class MockUser {
    * @public
    * @readonly
    */
-  public get discriminator(): number {
-    return this._discriminator;
+  public get discriminator(): string {
+    return String(this._discriminator).padStart(4, "0");
   }
 
   /**

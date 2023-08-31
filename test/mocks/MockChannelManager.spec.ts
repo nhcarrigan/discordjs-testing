@@ -45,6 +45,23 @@ suite("Mock Channel Manager", () => {
     assert.equal(channels.cache.size, 1);
   });
 
+  test("should be able to fetch a single channel", async () => {
+    const channels = new MockChannelManager(guild);
+    const created = await channels.create({
+      name: "test",
+      type: ChannelType.GuildText,
+    });
+    const fetched = await channels.fetch(created.id);
+    assert.exists(fetched);
+    assert.equal(fetched?.id, created.id);
+  });
+
+  test("should get null on missing channel", async () => {
+    const channels = new MockChannelManager(guild);
+    const fetched = await channels.fetch("1");
+    assert.isNull(fetched);
+  });
+
   test("should be able to remove a channel", async () => {
     const channels = new MockChannelManager(guild);
     const created = await channels.create({

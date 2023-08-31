@@ -29,6 +29,19 @@ suite("Mock User Manager", () => {
    * Methods.
    */
 
+  test("should be able to add a user", async () => {
+    const manager = new MockUserManager(guild);
+    await manager.add({
+      username: "test",
+      avatar: "https://cdn.nhcarrigan.com/profile.png",
+      bot: false,
+      discriminator: 1,
+      system: false,
+    });
+    assert.equal(manager.cache.size, 1);
+    assert.equal(manager.cache.first()?.username, "test");
+  });
+
   test("should be able to fetch a user", async () => {
     const manager = new MockUserManager(guild);
     const user = await manager.add({
@@ -53,5 +66,24 @@ suite("Mock User Manager", () => {
     });
     const result = await manager.fetch();
     assert.equal(result.size, 1);
+  });
+
+  test("should get null if user does not exist", async () => {
+    const manager = new MockUserManager(guild);
+    const result = await manager.fetch("123");
+    assert.isNull(result);
+  });
+
+  test("should be able to remove a user", () => {
+    const manager = new MockUserManager(guild);
+    manager.add({
+      username: "test",
+      avatar: "https://cdn.nhcarrigan.com/profile.png",
+      bot: false,
+      discriminator: 1,
+      system: false,
+    });
+    manager.remove(manager.cache.first()?.id || "");
+    assert.equal(manager.cache.size, 0);
   });
 });
