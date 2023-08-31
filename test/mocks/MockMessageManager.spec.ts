@@ -40,6 +40,12 @@ suite("Mock Message Manager", () => {
     assert.equal(manager.cache.size, 0);
   });
 
+  test("should have a channel property", () => {
+    const manager = new MockMessageManager(channel);
+    assert.exists(manager.channel);
+    assert.deepEqual(manager.channel, channel);
+  });
+
   /**
    * Methods.
    */
@@ -56,6 +62,12 @@ suite("Mock Message Manager", () => {
     const result = await manager.send("hi", user);
     const message = await manager.fetch(result.id);
     assert.equal(message?.content, "hi");
+  });
+
+  test("should get null when fetching non-existent message", async () => {
+    const manager = new MockMessageManager(channel);
+    const message = await manager.fetch("1");
+    assert.isNull(message);
   });
 
   test("should be able to fetch all messages", async () => {

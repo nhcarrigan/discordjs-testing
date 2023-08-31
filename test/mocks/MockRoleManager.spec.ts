@@ -42,11 +42,24 @@ suite("Mock Role Manager", () => {
     assert.equal(result?.name, "test");
   });
 
+  test("should get null if role doesn't exist", async () => {
+    const manager = new MockRoleManager(guild);
+    const result = await manager.fetch("123");
+    assert.isNull(result);
+  });
+
   test("should be able to fetch all roles", async () => {
     const manager = new MockRoleManager(guild);
     manager.create({ name: "test" });
     manager.create({ name: "test2" });
     const result = await manager.fetch();
     assert.equal(result.size, 2);
+  });
+
+  test("should be able to delete a role", async () => {
+    const manager = new MockRoleManager(guild);
+    const role = manager.create({ name: "test" });
+    await manager.delete(role.id);
+    assert.equal(manager.cache.size, 0);
   });
 });

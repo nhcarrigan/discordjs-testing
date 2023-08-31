@@ -42,6 +42,15 @@ suite("Mock Member", () => {
     assert.equal(member.id, user.id);
   });
 
+  test("should have guild property", () => {
+    const member = new MockMember({
+      user,
+      guild,
+    });
+    assert.exists(member.guild);
+    assert.deepEqual(member.guild, guild);
+  });
+
   test("should have roles property", () => {
     const member = new MockMember({
       user,
@@ -68,6 +77,15 @@ suite("Mock Member", () => {
     assert.exists(member.bannable);
   });
 
+  test("should be able to set bannable", () => {
+    const member = new MockMember({
+      user,
+      guild,
+    });
+    member.bannable = true;
+    assert.isTrue(member.bannable);
+  });
+
   test("should have kickable property", () => {
     const member = new MockMember({
       user,
@@ -76,12 +94,21 @@ suite("Mock Member", () => {
     assert.exists(member.kickable);
   });
 
-  test("should have timeout property", () => {
+  test("should be able to set kickable", () => {
     const member = new MockMember({
       user,
       guild,
     });
-    assert.exists(member.timeout);
+    member.kickable = true;
+    assert.isTrue(member.kickable);
+  });
+
+  test("should have timeoutDuration property", () => {
+    const member = new MockMember({
+      user,
+      guild,
+    });
+    assert.exists(member.timeoutDuration);
   });
 
   /**

@@ -1,8 +1,10 @@
 import { assert } from "chai";
-import { ChannelType, EmbedBuilder } from "discord.js";
+import { ChannelType, EmbedBuilder, ModalBuilder } from "discord.js";
 
+import { ChatInputCommandInteractionParameters } from "../../src/interfaces/ChatInputCommandInteractionParameters";
 import { MockChannel } from "../../src/mocks/MockChannel";
 import { MockChatInputCommandInteraction } from "../../src/mocks/MockChatInputCommandInteraction";
+import { MockCommandOptions } from "../../src/mocks/MockCommandOptions";
 import { MockGuild } from "../../src/mocks/MockGuild";
 import { MockMember } from "../../src/mocks/MockMember";
 import { MockUser } from "../../src/mocks/MockUser";
@@ -27,7 +29,7 @@ const channel = new MockChannel({
   guild: guild,
 });
 
-const baseInteractionOpts = {
+const baseInteractionOpts: ChatInputCommandInteractionParameters = {
   commandName: "test",
   guild,
   member,
@@ -53,6 +55,29 @@ suite("Mock Chat Input Command Interaction", () => {
     );
     assert.exists(interaction);
     assert.instanceOf(interaction, MockChatInputCommandInteraction);
+  });
+
+  test("should instantiate with options", () => {
+    const interaction = new MockChatInputCommandInteraction({
+      ...baseInteractionOpts,
+      options: [
+        {
+          name: "test",
+          value: "test",
+          type: 3,
+        },
+      ],
+    });
+    assert.exists(interaction);
+    assert.instanceOf(interaction, MockChatInputCommandInteraction);
+    assert.instanceOf(interaction.options, MockCommandOptions);
+  });
+
+  test("should default to null guild", () => {
+    const withoutGuild = { ...baseInteractionOpts };
+    delete withoutGuild.guild;
+    const interaction = new MockChatInputCommandInteraction(withoutGuild);
+    assert.isNull(interaction.guild);
   });
 
   /**
@@ -125,11 +150,27 @@ suite("Mock Chat Input Command Interaction", () => {
     assert.isFalse(interaction.deferred);
   });
 
+  test("should have replies property", () => {
+    const interaction = new MockChatInputCommandInteraction(
+      baseInteractionOpts
+    );
+    assert.exists(interaction.replies);
+    assert.equal(interaction.replies.length, 0);
+  });
+
   test("should have options property", () => {
     const interaction = new MockChatInputCommandInteraction(
       baseInteractionOpts
     );
     assert.exists(interaction.options);
+  });
+
+  test("should have modal property", () => {
+    const interaction = new MockChatInputCommandInteraction(
+      baseInteractionOpts
+    );
+    assert.property(interaction, "modal");
+    assert.isNull(interaction.modal);
   });
 
   /**
@@ -227,5 +268,61 @@ suite("Mock Chat Input Command Interaction", () => {
       .editReply("test")
       .catch((err) => (errMessage = err.message));
     assert.equal(errMessage, "Interaction has not been deferred or replied.");
+  });
+
+  test("should be able to show modal", async () => {
+    const interaction = new MockChatInputCommandInteraction(
+      baseInteractionOpts
+    );
+    const modal = new ModalBuilder();
+    await interaction.showModal(modal);
+    assert.deepEqual(interaction.modal, modal);
+  });
+
+  test("should not be able to show modal after deferred", async () => {
+    let errMessage = "";
+    const interaction = new MockChatInputCommandInteraction(
+      baseInteractionOpts
+    );
+    await interaction.deferReply();
+    const modal = new ModalBuilder();
+    await interaction
+      .showModal(modal)
+      .catch((err) => (errMessage = err.message));
+    assert.equal(errMessage, "Interaction already deferred or replied.");
+  });
+
+  test("should not be able to show modal after reply", async () => {
+    let errMessage = "";
+    const interaction = new MockChatInputCommandInteraction(
+      baseInteractionOpts
+    );
+    await interaction.reply("hi");
+    const modal = new ModalBuilder();
+    await interaction
+      .showModal(modal)
+      .catch((err) => (errMessage = err.message));
+    assert.equal(errMessage, "Interaction already deferred or replied.");
+  });
+
+  test("should not be able to show modal twice", async () => {
+    let errMessage = "";
+    const interaction = new MockChatInputCommandInteraction(
+      baseInteractionOpts
+    );
+    const modal = new ModalBuilder();
+    await interaction.showModal(modal);
+    await interaction
+      .showModal(modal)
+      .catch((err) => (errMessage = err.message));
+    assert.equal(errMessage, "Interaction already deferred or replied.");
+  });
+
+  test("should be able to typecast", () => {
+    const interaction = new MockChatInputCommandInteraction(
+      baseInteractionOpts
+    );
+    const cast = interaction.typeCast();
+    assert.exists(cast);
   });
 });

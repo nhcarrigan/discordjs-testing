@@ -52,6 +52,12 @@ suite("Mock Member Manager", () => {
     assert.deepEqual(result, member);
   });
 
+  test("should get null on missing member", async () => {
+    const manager = new MockMemberManager(guild);
+    const result = await manager.fetch("1");
+    assert.isNull(result);
+  });
+
   test("should be able to fetch all members", async () => {
     const manager = new MockMemberManager(guild);
     manager.add(user);
