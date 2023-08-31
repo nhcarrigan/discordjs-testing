@@ -6,6 +6,7 @@
   "scripts": {
     "prebuild": "rimraf prod",
     "build": "tsc",
+    "docs": "typedoc src/index.ts --out documentation --plugin typedoc-plugin-missing-exports",
     "lint": "eslint src test --max-warnings 0",
     "start": "node -r dotenv/config prod/index.js",
     "pretest": "rimraf ./.nyc_output && ts-node test/validateCoverage.ts",
@@ -60,6 +61,8 @@
     "rimraf": "5.0.1",
     "ts-mocha": "10.0.0",
     "ts-node": "10.9.1",
+    "typedoc": "0.25.0",
+    "typedoc-plugin-missing-exports": "2.1.0",
     "typescript": "5.2.2"
   },
   "peerDependencies": {

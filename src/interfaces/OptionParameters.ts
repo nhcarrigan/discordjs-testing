@@ -9,6 +9,11 @@ import { MockMessage } from "../mocks/MockMessage";
 import { MockRole } from "../mocks/MockRole";
 import { MockUser } from "../mocks/MockUser";
 
+/**
+ * Accepted types for a command option.
+ *
+ * @type {ApplicationCommandOptionType} OptionParameters
+ */
 export type OptionParameters =
   | StringOptionParameters
   | UserOptionParameters
@@ -21,6 +26,16 @@ export type OptionParameters =
   | AttachmentOptionParameters
   | MessageOptionParameters
   | SubcommandOptionParameters;
+
+/**
+ * Parameters for adding an option to a command.
+ *
+ * @interface StringOptionParameters
+ * @property {string} name - The name of the option.
+ * @property {string} value - The value of the option.
+ * @property {ApplicationCommandOptionType.String} type - The type of the option.
+ * @property {boolean?} required - Whether the option is required.
+ */
 export interface StringOptionParameters {
   name: string;
   value: string;
@@ -28,6 +43,15 @@ export interface StringOptionParameters {
   required?: boolean;
 }
 
+/**
+ * Parameters for adding an option to a command.
+ *
+ * @interface UserOptionParameters
+ * @property {string} name - The name of the option.
+ * @property {MockUser} value - The value of the option.
+ * @property {ApplicationCommandOptionType.User} type - The type of the option.
+ * @property {boolean?} required - Whether the option is required.
+ */
 export interface UserOptionParameters {
   name: string;
   value: MockUser;
@@ -35,6 +59,15 @@ export interface UserOptionParameters {
   required?: boolean;
 }
 
+/**
+ * Parameters for adding an option to a command.
+ *
+ * @interface BooleanOptionParameters
+ * @property {string} name - The name of the option.
+ * @property {boolean} value - The value of the option.
+ * @property {ApplicationCommandOptionType.Boolean} type - The type of the option.
+ * @property {boolean?} required - Whether the option is required.
+ */
 export interface BooleanOptionParameters {
   name: string;
   value: boolean;
@@ -42,6 +75,15 @@ export interface BooleanOptionParameters {
   required?: boolean;
 }
 
+/**
+ * Parameters for adding an option to a command.
+ *
+ * @interface IntegerOptionParameters
+ * @property {string} name - The name of the option.
+ * @property {number} value - The value of the option.
+ * @property {ApplicationCommandOptionType.Integer} type - The type of the option.
+ * @property {boolean?} required - Whether the option is required.
+ */
 export interface IntegerOptionParameters {
   name: string;
   value: number;
@@ -49,6 +91,15 @@ export interface IntegerOptionParameters {
   required?: boolean;
 }
 
+/**
+ * Parameters for adding an option to a command.
+ *
+ * @interface ChannelOptionParameters
+ * @property {string} name - The name of the option.
+ * @property {MockChannel} value - The value of the option.
+ * @property {ApplicationCommandOptionType.Channel} type - The type of the option.
+ * @property {boolean?} required - Whether the option is required.
+ */
 export interface ChannelOptionParameters {
   name: string;
   value: MockChannel;
@@ -56,6 +107,15 @@ export interface ChannelOptionParameters {
   required?: boolean;
 }
 
+/**
+ * Parameters for adding an option to a command.
+ *
+ * @interface MentionableOptionParameters
+ * @property {string} name - The name of the option.
+ * @property {MockUser | MockChannel | MockRole} value - The value of the option.
+ * @property {ApplicationCommandOptionType.Mentionable} type - The type of the option.
+ * @property {boolean?} required - Whether the option is required.
+ */
 export interface MentionableOptionParameters {
   name: string;
   value: MockUser | MockChannel | MockRole;
@@ -63,6 +123,15 @@ export interface MentionableOptionParameters {
   required?: boolean;
 }
 
+/**
+ * Parameters for adding an option to a command.
+ *
+ * @interface NumberOptionParameters
+ * @property {string} name - The name of the option.
+ * @property {number} value - The value of the option.
+ * @property {ApplicationCommandOptionType.Number} type - The type of the option.
+ * @property {boolean?} required - Whether the option is required.
+ */
 export interface NumberOptionParameters {
   name: string;
   value: number;
@@ -70,6 +139,15 @@ export interface NumberOptionParameters {
   required?: boolean;
 }
 
+/**
+ * Parameters for adding an option to a command.
+ *
+ * @interface RoleOptionParameters
+ * @property {string} name - The name of the option.
+ * @property {MockRole} value - The value of the option.
+ * @property {ApplicationCommandOptionType.Role} type - The type of the option.
+ * @property {boolean?} required - Whether the option is required.
+ */
 export interface RoleOptionParameters {
   name: string;
   value: MockRole;
@@ -77,6 +155,15 @@ export interface RoleOptionParameters {
   required?: boolean;
 }
 
+/**
+ * Parameters for adding an option to a command.
+ *
+ * @interface AttachmentOptionParameters
+ * @property {string} name - The name of the option.
+ * @property {MockAttachment} value - The value of the option.
+ * @property {ApplicationCommandOptionType.Attachment} type - The type of the option.
+ * @property {boolean?} required - Whether the option is required.
+ */
 export interface AttachmentOptionParameters {
   name: string;
   value: MockAttachment;
@@ -84,6 +171,15 @@ export interface AttachmentOptionParameters {
   required?: boolean;
 }
 
+/**
+ * Parameters for adding an option to a command.
+ *
+ * @interface MessageOptionParameters
+ * @property {string} name - The name of the option.
+ * @property {MockMessage} value - The value of the option.
+ * @property {ApplicationCommandOptionType.Message} type - The type of the option.
+ * @property {boolean?} required - Whether the option is required.
+ */
 export interface MessageOptionParameters {
   name: string;
   value: MockMessage;
@@ -91,6 +187,15 @@ export interface MessageOptionParameters {
   required?: boolean;
 }
 
+/**
+ * Parameters for adding an option to a command.
+ *
+ * @interface SubcommandOptionParameters
+ * @property {string} name - The name of the option.
+ * @property {string} value - The value of the option.
+ * @property {ApplicationCommandOptionType.Subcommand} type - The type of the option.
+ * @property {boolean?} required - Whether the option is required.
+ */
 export interface SubcommandOptionParameters {
   name: string;
   value: string;
