@@ -4,9 +4,11 @@
 .env
 .eslintrc.json
 .gitattributes
-.prettierrc
+.prettierrc.json
 renovate.json
-
+/.nyc_output/
+/coverage/
+.nycrc.json
 
 # Ignore this for local development
 *.tgz
