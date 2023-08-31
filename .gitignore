@@ -4,3 +4,4 @@
 *.tgz
 /coverage/
 .nyc_output
+/docs/

@@ -9,6 +9,7 @@ renovate.json
 /.nyc_output/
 /coverage/
 .nycrc.json
+/docs/
 
 # Ignore this for local development
 *.tgz
