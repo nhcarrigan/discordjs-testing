@@ -44,7 +44,7 @@ jobs:
         run: |
           shopt -s extglob
           git checkout --orphan gh-pages
-          ls -a | grep -xv "coverage" | grep -xv "documentation" | grep -xv ".git" | xargs rm -rfv > /dev/null
+          ls -a | grep -xv "coverage" | grep -xv "documentation" | grep -xv ".git" | grep -xv "." | grep -xv ".." | xargs rm -rfv > /dev/null
           echo "djs-testing.nhcarrigan.com" > CNAME
           echo "# Discord JS Testing" > README.md
           echo "[Read the documentation](./documentation)" >> README.md
