@@ -34,6 +34,7 @@ export class MockMember {
     this._bannable = options.bannable || false;
     this._kickable = options.kickable || false;
     this._permissions = new PermissionsBitField();
+    this._guild.members.cache.set(this._id, this);
   }
 
   /**
