@@ -35,8 +35,8 @@ devDependencies:
     specifier: 10.0.6
     version: 10.0.6
   '@types/node':
-    specifier: 18.18.13
-    version: 18.18.13
+    specifier: 18.18.14
+    version: 18.18.14
   chai:
     specifier: 4.3.10
     version: 4.3.10
@@ -60,7 +60,7 @@ devDependencies:
     version: 10.0.0(mocha@10.2.0)
   ts-node:
     specifier: 10.9.1
-    version: 10.9.1(@types/node@18.18.13)(typescript@5.2.2)
+    version: 10.9.1(@types/node@18.18.14)(typescript@5.2.2)
   typedoc:
     specifier: 0.25.0
     version: 0.25.0(typescript@5.2.2)
@@ -622,8 +622,8 @@ packages:
     resolution: {integrity: sha512-dJvrYWxP/UcXm36Qn36fxhUKu8A/xMRXVT2cliFF1Z7UA9liG5Psj3ezNSZw+5puH2czDXRLcXQxf8JbJt0ejg==}
     dev: true
 
-  /@types/node@18.18.13:
-    resolution: {integrity: sha512-vXYZGRrSCreZmq1rEjMRLXJhiy8MrIeVasx+PCVlP414N7CJLHnMf+juVvjdprHyH+XRy3zKZLHeNueOpJCn0g==}
+  /@types/node@18.18.14:
+    resolution: {integrity: sha512-iSOeNeXYNYNLLOMDSVPvIFojclvMZ/HDY2dU17kUlcsOsSQETbWIslJbYLZgA+ox8g2XQwSHKTkght1a5X26lQ==}
     dependencies:
       undici-types: 5.26.5
 
@@ -638,7 +638,7 @@ packages:
   /@types/ws@8.5.9:
     resolution: {integrity: sha512-jbdrY0a8lxfdTp/+r7Z4CkycbOFN8WX+IOchLJr3juT/xzbJ8URyTVSJ/hvNdadTgM1mnedb47n+Y31GsFnQlg==}
     dependencies:
-      '@types/node': 18.18.13
+      '@types/node': 18.18.14
     dev: false
 
   /@typescript-eslint/eslint-plugin@5.59.5(@typescript-eslint/parser@5.59.5)(eslint@8.54.0)(typescript@5.2.2):
@@ -3194,7 +3194,7 @@ packages:
       tsconfig-paths: 3.14.2
     dev: true
 
-  /ts-node@10.9.1(@types/node@18.18.13)(typescript@5.2.2):
+  /ts-node@10.9.1(@types/node@18.18.14)(typescript@5.2.2):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -3213,7 +3213,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 18.18.13
+      '@types/node': 18.18.14
       acorn: 8.10.0
       acorn-walk: 8.2.0
       arg: 4.1.3
