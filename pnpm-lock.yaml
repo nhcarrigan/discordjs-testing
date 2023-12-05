@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@sapphire/snowflake':
-    specifier: 3.5.1
-    version: 3.5.1
+    specifier: 3.5.2
+    version: 3.5.2
   discord.js:
     specifier: 14.14.1
     version: 14.14.1
@@ -339,7 +339,7 @@ packages:
       '@discordjs/collection': 2.0.0
       '@discordjs/util': 1.0.2
       '@sapphire/async-queue': 1.5.0
-      '@sapphire/snowflake': 3.5.1
+      '@sapphire/snowflake': 3.5.2
       '@vladfrangu/async_event_emitter': 2.2.2
       discord-api-types: 0.37.61
       magic-bytes.js: 1.5.0
@@ -586,6 +586,11 @@ packages:
 
   /@sapphire/snowflake@3.5.1:
     resolution: {integrity: sha512-BxcYGzgEsdlG0dKAyOm0ehLGm2CafIrfQTZGWgkfKYbj+pNNsorZ7EotuZukc2MT70E0UbppVbtpBrqpzVzjNA==}
+    engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
+    dev: false
+
+  /@sapphire/snowflake@3.5.2:
+    resolution: {integrity: sha512-FTm9RdyELF21PQN5dS/HLRs90XqWclHa+p0gkonc+BA2X2QKfFySHSjUbO65rmArd/ghR9Ahj2fMfedTZEqzOw==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
     dev: false
 
