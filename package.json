@@ -42,7 +42,7 @@
   },
   "homepage": "https://github.com/nhcarrigan/discordjs-testing#readme",
   "dependencies": {
-    "@sapphire/snowflake": "3.5.2",
+    "@sapphire/snowflake": "3.5.3",
     "dotenv": "16.3.2",
     "winston": "3.11.0"
   },
